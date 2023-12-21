@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         kanit: ["Kanit", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       colors: {
         violet: "#1e1645",
