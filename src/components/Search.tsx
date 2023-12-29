@@ -24,18 +24,16 @@ export const Search = () => {
       </form>
       <button
         onClick={() => handleToggleMenu()}
-        className="bg-creme border-2 border-solid border-creme rounded p-1"
+        className={`bg-creme border-2 border-solid border-creme rounded p-1 relative `}
       >
-        <span>
           {isMenuOpen ? (
             <>
               <Cross />
-              <Navbar />
+            <Navbar />
             </>
           ) : (
             <Menu />
           )}
-        </span>
       </button>
     </>
   );
