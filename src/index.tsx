@@ -15,6 +15,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: '/contact',
+    // element: <Contact />
+  }
   
 ]);
 

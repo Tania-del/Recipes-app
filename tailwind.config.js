@@ -15,6 +15,14 @@ module.exports = {
         creme: "#e9e8e8",
         red: "#d40c0c",
         dark: "#8b7b97",
+        gray: "#c6c8c6",
+      },
+
+      boxShadow: {
+        "3xl": "0 0 5px 2px #fff",
+      },
+      dropShadow: {
+        "3xl": "1px 0 10px #dfbb2a ",
       },
     },
   },

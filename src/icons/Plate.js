@@ -3,8 +3,8 @@ const SvgPlate = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
-    width={800}
-    height={800}
+    width={37.42}
+    height={37.42}
     fill="#ffff"
     stroke="#ffff"
     viewBox="-38.07 -38.07 456.87 456.87"
