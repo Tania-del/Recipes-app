@@ -6,6 +6,7 @@ const SvgHome = (props) => (
     height={26}
     viewBox="0 0 24 24"
     {...props}
+    fill="currentColor"
   >
     <path
       fillRule="evenodd"

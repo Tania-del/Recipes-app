@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 
 export const Search = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  console.log("🚀 ~ file: Search.tsx:6 ~ Search ~ isMenuOpen:", isMenuOpen);
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,17 +21,21 @@ export const Search = () => {
           {<SearchSvgrepoCom />}
         </button>
       </form>
+      
+
+      <Navbar className={isMenuOpen ? 'translate-y-0' : 'translate-y-[-100%] md:translate-x-[100%] md:translate-y-0'} />
       <button
         onClick={() => handleToggleMenu()}
-        className={`bg-creme border-2 border-solid border-creme rounded p-1 relative `}
+        className={`bg-creme border-2 border-solid border-creme rounded p-1 relative h-[37px] w-[37px] flex items-center  hover:text-red`}
       >
           {isMenuOpen ? (
             <>
-              <Cross />
-            <Navbar />
+            <Cross  />
             </>
-          ) : (
+        ) : (
+            <>
             <Menu />
+            </>
           )}
       </button>
     </>
