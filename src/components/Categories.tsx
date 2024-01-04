@@ -21,15 +21,13 @@ const Categories = () => {
   return (
     <section>
       <Title title="Choose your favourite" category="category!" />
-      <div>
-        <ul>
+        <ul className="grid gap-1.5 pb-1 overflow-x-hidden">
           {categories.map(({ img, id, category }) => (
-            <li>
+            <li className="p-[15px] bg-pink rounded cursor-pointer transition ease-in-out transform hover:scale-103 hover:shadow-4xl duration-200">
               <Category key={id} img={img} id={id} category={category} />
             </li>
           ))}
         </ul>
-      </div>
     </section>
   );
 };

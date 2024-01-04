@@ -26,7 +26,7 @@ export const Search = () => {
       <Navbar className={isMenuOpen ? 'translate-y-0' : 'translate-y-[-100%] md:translate-x-[100%] md:translate-y-0'} />
       <button
         onClick={() => handleToggleMenu()}
-        className={`bg-creme border-2 border-solid border-creme rounded p-1 relative h-[37px] w-[37px] flex items-center  hover:text-red`}
+        className={`bg-creme border-2 border-solid border-creme rounded p-1 relative h-[37px] w-[37px] flex items-center  hover:text-red z-10`}
       >
           {isMenuOpen ? (
             <>

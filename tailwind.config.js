@@ -20,9 +20,13 @@ module.exports = {
 
       boxShadow: {
         "3xl": "0 0 5px 2px #fff",
+        "4xl": "0 2px 5px 3px #949494",
       },
       dropShadow: {
         "3xl": "1px 0 10px #dfbb2a ",
+      },
+      scale: {
+        103: "1.03",
       },
     },
   },
