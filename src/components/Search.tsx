@@ -11,7 +11,8 @@ export const Search = () => {
 
   return (
     <>
-      <form action="search" className="relative bg-white rounded">
+    
+      <form action="search" className="relative bg-white rounded  md:-ml-36">
         <input
           name="query"
           placeholder="Search recipes..."

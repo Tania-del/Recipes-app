@@ -1,13 +1,15 @@
 import React from 'react';
 import Header from './components/Header';
-import Category from './components/Categories';
+import Categories from './components/Categories';
 
 
 function App() {
   return (
     <div className='font-roboto'>
       <Header />
-      <Category  />
+      <main className='max-w-[1140px] mt-0 mr-auto mb-0 ml-auto'>
+      <Categories  />
+      </main>
     </div>
   );
 }
