@@ -21,9 +21,9 @@ const Categories = () => {
   return (
     <section>
       <Title title="Choose your favourite" category="category!" />
-        <ul className="grid gap-1.5 pb-1 overflow-x-hidden">
+        <ul className="grid gap-2 grid-cols-auto pb-8 overflow-x-hidden ">
           {categories.map(({ img, id, category }) => (
-            <li className="p-[15px] bg-pink rounded cursor-pointer transition ease-in-out transform hover:scale-103 hover:shadow-4xl duration-200">
+            <li className="p-[15px] bg-pink rounded cursor-pointer transition ease-out transform hover:scale-103 hover:shadow-4xl duration-200">
               <Category key={id} img={img} id={id} category={category} />
             </li>
           ))}
