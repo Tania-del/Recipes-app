@@ -1,3 +1,4 @@
+import React from 'react'
 import { ICategory } from '../store/types'
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../store/store'
@@ -9,7 +10,7 @@ export const Category = ({ id, category, img }: ICategory) => {
  
   
   const handleCategoryClick = () => {
-    dispatch(setSelectedCategory(category));
+    dispatch(setSelectedCategory(category))
   }
 
   return (

@@ -15,6 +15,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import CategoryMeals from './components/CategoryMeals';
 import Categories from './components/Categories';
+import SingleMeal from './components/SingleMeal';
 
 
 
@@ -28,7 +29,7 @@ root.render(
         <Routes>
           <Route path='/' element={<App />} />
           <Route path= '/category/:categoryId' element={<CategoryMeals />} />
-          <Route path= '/category/fuck' element={<div>Fuck you</div> } />
+          {/* <Route path= '/recipes/:mealId' element={<SingleMeal />} /> */}
         </Routes>
       </BrowserRouter>
       </Provider>
