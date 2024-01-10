@@ -18,7 +18,6 @@ export const getCategories = createAsyncThunk(
 )
 
 
-
 interface CategoriesState {
   categories: ICategory[];
   selectedCategory: string;
@@ -38,10 +37,10 @@ export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    // setSelectedCategory: (state, { payload }: PayloadAction<string>) => {
-    //   state.selectedCategory = payload
-    //   localStorage.setItem('category', payload)
-    // }
+    setSelectedCategory: (state, { payload }: PayloadAction<string>) => {
+      state.selectedCategory = payload;
+      localStorage.setItem('category', payload);
+    }
   },
 
   extraReducers: (builder) => {
@@ -50,13 +49,18 @@ export const categoriesSlice = createSlice({
       //   state.hasError = false,
     })
     builder.addCase(getCategories.fulfilled, (state, { payload }: PayloadAction<ICategory[]>) => {
-      state.categories = payload
+      state.categories = payload;
     })
   }
 
 });
 
-// export const { setSelectedCategory } = categoriesSlice.actions;
+
+export const { setSelectedCategory } = categoriesSlice.actions;
+
+
 export const selectCategories = (state: RootState) => state.categories;
+export const selectSelectedCategory = (state: RootState) => state.categories.selectedCategory;
+
 
 export default categoriesSlice.reducer;

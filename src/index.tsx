@@ -4,26 +4,19 @@ import './styles.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
+  BrowserRouter,
+  Route,
   RouterProvider,
+  Routes,
   createBrowserRouter,
 } from "react-router-dom";
 import ErrorPage from './components/ErrorPage';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import CategoryMeals from './components/CategoryMeals';
+import Categories from './components/Categories';
 
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/contact',
-    // element: <Contact />
-  }
-  
-]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,7 +24,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <Provider store={store}>
-    <RouterProvider router={router} /> 
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path= '/category/:categoryId' element={<CategoryMeals />} />
+          <Route path= '/category/fuck' element={<div>Fuck you</div> } />
+        </Routes>
+      </BrowserRouter>
       </Provider>
   </React.StrictMode>
 );
