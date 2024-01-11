@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { IMeal } from '../store/types'
+import { ISingleMeal } from '../store/types'
 
-const SingleMeal = ({ meal, id, img }: IMeal) => {
+const SingleMeal = ({ meal, id, img }: ISingleMeal) => {
     return (
         <div className='bg-pink p-3 transition ease-out transform hover:scale-103 hover:shadow-4xl duration-200 rounded'>
       <div className='rounded-t  bg-opacity-15 mb-[-5px] transform scale-99 translate-z-0 rounded-tl-4 rounded-tr-4'>

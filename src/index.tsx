@@ -6,17 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
   Route,
-  RouterProvider,
   Routes,
-  createBrowserRouter,
 } from "react-router-dom";
-import ErrorPage from './components/ErrorPage';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import CategoryMeals from './components/CategoryMeals';
-import Categories from './components/Categories';
-import SingleMeal from './components/SingleMeal';
-import Recipe from './components/Recipe';
+import Recipe from './components/SingleRecipe';
 
 
 

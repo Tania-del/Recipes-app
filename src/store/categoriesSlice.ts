@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICategory, IFetchedCategory, IFetchedMeals, IMeal } from "./types";
+import { ICategory, IFetchedCategory, IFetchedMeals, ISingleMeal } from "./types";
 import { urlAllCategories, urlCategoryMeals } from "../apis";
 import { RootState } from "./store";
 
@@ -30,7 +30,7 @@ export const getCategoryMeals = createAsyncThunk(
     const response = await fetch(urlCategoryMeals + category);
     const { meals } = await response.json();
 
-    const formatedMeals: IMeal[] = meals.map(({ idMeal, strMeal, strMealThumb }: IFetchedMeals) => ({ 
+    const formatedMeals: ISingleMeal[] = meals.map(({ idMeal, strMeal, strMealThumb }: IFetchedMeals) => ({ 
       id: idMeal,
       meal: strMeal,
       img: strMealThumb,
@@ -45,7 +45,7 @@ interface CategoriesState {
   selectedCategory: string;
   hasError: boolean;
   isLoading: boolean;
-  categoryMeals?: IMeal[];
+  categoryMeals?: ISingleMeal[];
 }
 
 const initialState: CategoriesState = {
@@ -79,7 +79,7 @@ export const categoriesSlice = createSlice({
       }
     );
     // builder.addCase(getCategoryMeals.pending, (state, { payload }))
-    builder.addCase(getCategoryMeals.fulfilled, (state, { payload }: PayloadAction<IMeal[]>) => {
+    builder.addCase(getCategoryMeals.fulfilled, (state, { payload }: PayloadAction<ISingleMeal[]>) => {
       state.categoryMeals = payload;
     })
   },
