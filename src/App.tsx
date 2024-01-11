@@ -7,7 +7,7 @@ function App() {
   return (
     <div className='font-roboto'>
       <Header />
-      <main className='max-w-[1140px] mt-0 mr-auto mb-0 ml-auto'>
+      <main >
       <Categories  />
       </main>
     </div>

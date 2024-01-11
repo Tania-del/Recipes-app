@@ -6,7 +6,7 @@ const SingleMeal = ({ meal, id, img }: IMeal) => {
     return (
         <div className='bg-pink p-3 transition ease-out transform hover:scale-103 hover:shadow-4xl duration-200 rounded'>
       <div className='rounded-t  bg-opacity-15 mb-[-5px] transform scale-99 translate-z-0 rounded-tl-4 rounded-tr-4'>
-          <Link to={`/recipes/:${id}`} className=''>
+          <Link to={`/recipes/${id}`} >
                 <img src={img} alt="" className='w-full h-full block border-x border-t-[1px] rounded' />
           </Link>
       </div>
@@ -15,4 +15,4 @@ const SingleMeal = ({ meal, id, img }: IMeal) => {
   )
 }
 
-export default SingleMeal
+export default SingleMeal;

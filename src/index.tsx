@@ -16,6 +16,7 @@ import { store } from './store/store';
 import CategoryMeals from './components/CategoryMeals';
 import Categories from './components/Categories';
 import SingleMeal from './components/SingleMeal';
+import Recipe from './components/Recipe';
 
 
 
@@ -28,8 +29,8 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<App />} />
-          <Route path= '/category/:categoryId' element={<CategoryMeals />} />
-          {/* <Route path= '/recipes/:mealId' element={<SingleMeal />} /> */}
+          <Route path='/category/:categoryId' element={<CategoryMeals />} />
+          <Route path='/recipes/:recipeId' element={<Recipe />} />
         </Routes>
       </BrowserRouter>
       </Provider>
