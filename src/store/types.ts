@@ -74,6 +74,6 @@ export interface IMeal {
         measure7: string,
             measure8: string,
             instructions: string,
-            aticle: string,
+            article: string,
         tags?: string,
 }
