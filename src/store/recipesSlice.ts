@@ -1,6 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { urlRecipeById } from "../apis";
-import { IFetchedMeal } from "./types";
+import { IFetchedMeal, IMeal } from "./types";
+import { RootState } from "./store";
 
 export const getRecipeById = createAsyncThunk(
   "recipes/getRecipeById",
@@ -63,9 +64,40 @@ export const getRecipeById = createAsyncThunk(
         tags: strTags,
       })
     );
-
-      console.log(formatedMeal);
       
-      return formatedMeal;
+      return formatedMeal[0];
   }
 );
+
+interface IRecipesState {
+  searchedRecipes: IFetchedMeal[];
+  selectedRecipe?: IMeal;
+  // favouriteRecipe: IMeal[];
+}
+
+const initialState: IRecipesState = {
+  searchedRecipes: [],
+  selectedRecipe: undefined,
+  
+}
+
+export const recipeSlice = createSlice({
+  name: 'recipes',
+  initialState,
+  reducers: {
+
+  },
+  extraReducers: (builder) => {
+    // builder.addCase(getRecipeById.pending, (state) => {
+
+    // })
+
+    builder.addCase(getRecipeById.fulfilled, (state, { payload }: PayloadAction<IMeal>) => {
+      state.selectedRecipe = payload;
+    })
+  }
+})
+
+export const selectSelectedRecipe = (state: RootState) => state.recipes.selectedRecipe;
+
+export default recipeSlice.reducer;
