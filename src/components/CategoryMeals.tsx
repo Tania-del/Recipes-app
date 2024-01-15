@@ -14,6 +14,7 @@ const CategoryMeals = () => {
     const category = useSelector(selectSelectedCategory);
     const meals = useSelector(selectCategoryMeals)
 
+    
     useEffect(() => {
        dispatch(getCategoryMeals(category))
    }, [category, dispatch])

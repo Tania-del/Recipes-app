@@ -17,12 +17,20 @@ const SingleRecipe = () => {
     dispatch(getRecipeById(recipeId))
   }, [recipeId, dispatch])
 
+console.log(recipe);
 
-  const { mealImg, meal, category, video = '/', area,  } = recipe ?? {}
-  console.log(recipe);
+  const { mealImg, meal, category, video = '/', area, } = recipe ?? {}
   
+    // console.log(Object.entries(recipe ?? {}).forEach(([key, engredient]) => {
+    //   if (key.startsWith('ingredient')) {
+    //   console.log(engredient)
+    // }}));
+  
+    // console.log(recipe);
+    
+
   return (
-    <div className=''>
+    <div className='mx-2 my-1 flex flex-col md:grid md:grid-cols-columns'>
       <div>
         <img src={mealImg} alt={meal} />
       </div>

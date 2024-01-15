@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { urlRecipeById } from "../apis";
-import { IFetchedMeal, IMeal } from "./types";
+import { IFetchedMeal, IIngredient, IMeal } from "./types";
 import { RootState } from "./store";
 
 export const getRecipeById = createAsyncThunk(
@@ -14,58 +14,51 @@ export const getRecipeById = createAsyncThunk(
         strYoutube,
         strMealThumb,
         strArea,
-        strCategory,
-        strIngredient1,
-        strIngredient2,
-        strIngredient3,
-        strIngredient4,
-        strIngredient5,
-        strIngredient6,
-        strIngredient7,
-        strIngredient8,
+        strCategory,  
+        strInstructions,
+        strSource,
+        strTags,
 
-        strMeasure1,
-        strMeasure2,
-        strMeasure3,
-        strMeasure4,
-        strMeasure5,
-        strMeasure6,
-        strMeasure7,
-          strMeasure8,
+        ...rest
+      }: IFetchedMeal) => {
+        const ingredients: IIngredient[] = [];
+
+        Object.entries((rest)).forEach(([key, value]) => {
+          if (key.startsWith('strIngredient') && value !== '') {
+            const number = key.replace(/[a-zA-Z|]/g, '');
+
+            const newkey = `strMeasure${number}`;
+            
+            ingredients.push({
+              ingredient: value as string,
+              measure: (rest as Record<string, string>)[newkey],
+            });
+          }
+        });
+          
+        const result: IMeal = {
+          meal: strMeal,
+          video: strYoutube,
+          mealImg: strMealThumb,
+          area: strArea,
+          category: strCategory,
+          ingredients,
+          instructions: strInstructions,
+          article: strSource,
+          tags: strTags,
+        }
         
-          strInstructions,
-          strSource,
-          strTags,
-      }: IFetchedMeal) => ({
-        meal: strMeal,
-        video: strYoutube,
-        mealImg: strMealThumb,
-        area: strArea,
-        category: strCategory,
-        ingredient1: strIngredient1,
-        ingredient2: strIngredient2,
-        ingredient3: strIngredient3,
-        ingredient4: strIngredient4,
-        ingredient5: strIngredient5,
-        ingredient6: strIngredient6,
-        ingredient7: strIngredient7,
-        ingredient8: strIngredient8,
+        console.log(result);
+        
+        return result;
+      }
+    )
 
-        measure1: strMeasure1,
-        measure2: strMeasure2,
-        measure3: strMeasure3,
-        measure4: strMeasure4,
-        measure5: strMeasure5,
-        measure6: strMeasure6,
-        measure7: strMeasure7,
-            measure8: strMeasure8,
-            instructions: strInstructions,
-            aticle: strSource,
-        tags: strTags,
-      })
-    );
-      
-      return formatedMeal[0];
+    console.log(formatedMeal[0]);
+    
+    
+    
+      return formatedMeal[0]
   }
 );
 
