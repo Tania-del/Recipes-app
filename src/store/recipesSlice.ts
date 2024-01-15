@@ -14,28 +14,30 @@ export const getRecipeById = createAsyncThunk(
         strYoutube,
         strMealThumb,
         strArea,
-        strCategory,  
+        strCategory,
         strInstructions,
         strSource,
         strTags,
 
         ...rest
       }: IFetchedMeal) => {
+        console.log(rest);
+
         const ingredients: IIngredient[] = [];
 
-        Object.entries((rest)).forEach(([key, value]) => {
-          if (key.startsWith('strIngredient') && value !== '') {
-            const number = key.replace(/[a-zA-Z|]/g, '');
+        Object.entries(rest).forEach(([key, value]) => {
+          if (key.startsWith("strIngredient") && value !== "") {
+            const number = key.replace(/[a-zA-Z|]/g, "");
 
             const newkey = `strMeasure${number}`;
-            
+
             ingredients.push({
               ingredient: value as string,
               measure: (rest as Record<string, string>)[newkey],
             });
           }
         });
-          
+
         const result: IMeal = {
           meal: strMeal,
           video: strYoutube,
@@ -46,19 +48,13 @@ export const getRecipeById = createAsyncThunk(
           instructions: strInstructions,
           article: strSource,
           tags: strTags,
-        }
-        
-        console.log(result);
-        
+        };
+
         return result;
       }
-    )
+    );
 
-    console.log(formatedMeal[0]);
-    
-    
-    
-      return formatedMeal[0]
+    return formatedMeal[0];
   }
 );
 
@@ -71,26 +67,27 @@ interface IRecipesState {
 const initialState: IRecipesState = {
   searchedRecipes: [],
   selectedRecipe: undefined,
-  
-}
+};
 
 export const recipeSlice = createSlice({
-  name: 'recipes',
+  name: "recipes",
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // builder.addCase(getRecipeById.pending, (state) => {
 
     // })
 
-    builder.addCase(getRecipeById.fulfilled, (state, { payload }: PayloadAction<IMeal>) => {
-      state.selectedRecipe = payload;
-    })
-  }
-})
+    builder.addCase(
+      getRecipeById.fulfilled,
+      (state, { payload }: PayloadAction<IMeal>) => {
+        state.selectedRecipe = payload;
+      }
+    );
+  },
+});
 
-export const selectSelectedRecipe = (state: RootState) => state.recipes.selectedRecipe;
+export const selectSelectedRecipe = (state: RootState) =>
+  state.recipes.selectedRecipe;
 
 export default recipeSlice.reducer;

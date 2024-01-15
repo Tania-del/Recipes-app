@@ -17,6 +17,7 @@ module.exports = {
         dark: "#8b7b97",
         gray: "#c6c8c6",
         lightGray: "#bbb",
+        grayRgba: "rgba(30,31,83,.14)",
       },
 
       boxShadow: {
@@ -32,6 +33,7 @@ module.exports = {
       gridTemplateColumns: {
         auto: "repeat(auto-fill, minmax(192px, 1fr))",
         columns: "repeat(2, 1fr)",
+        13: "repeat(auto-fill, min-max(126px, 1fr))",
       },
       gridTemplateRows: {
         rows: "repeat(2,332px) 1fr",
