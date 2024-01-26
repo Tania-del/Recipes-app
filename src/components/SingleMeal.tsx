@@ -12,7 +12,7 @@ const SingleMeal = ({ meal, id, img }: ISingleMeal) => {
                 <img src={img} alt="" className='w-full h-full block border-x border-t-[1px] rounded' />
           </Link>
       </div>
-              <h4 className='text-base capitalize font-bold flex text-center items-center leading-tight justify-center text-white  bg-violet rounded-b p-2 min-h-14 tracking-wider'>{meal}</h4>
+              <h4 className='text-base capitalize font-bold flex text-center items-center leading-tight justify-center text-white bg-violet rounded-b p-0.3em min-h-14'>{meal}</h4>
       </div>
   )
 }

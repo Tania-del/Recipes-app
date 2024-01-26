@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAppDispatch } from '../store/store';
-import { getRecipeById, selectSelectedRecipe } from '../store/recipesSlice';
+import { getRecipeById, selectIsLoading, selectSelectedRecipe } from '../store/recipesSlice';
 import { useSelector } from 'react-redux';
 import { useCustomNavigate } from '../hooks/useCustomNavigate';
 import LinkOrButton from './LinkOrButton';
@@ -18,8 +18,13 @@ const SingleRecipe = () => {
     dispatch(getRecipeById(recipeId));
   }, [recipeId, dispatch]);
 
+const loading = useSelector(selectIsLoading)
 
-  console.log(recipe);
+  // console.log(recipe);
+  console.log('isLoading: ', loading);
+  
+
+
   
   const { mealImg, meal, category, video = '/', area, ingredients = [] } = recipe ?? {};
   const slicedEngredients: IIngredient[] = ingredients?.slice(0, 8);

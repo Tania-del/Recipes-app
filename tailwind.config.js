@@ -38,6 +38,10 @@ module.exports = {
       gridTemplateRows: {
         rows: "repeat(2,332px) 1fr",
       },
+
+      padding: {
+        "0.3em": "0.3em",
+      },
     },
   },
   plugins: [],

@@ -61,12 +61,14 @@ export const getRecipeById = createAsyncThunk(
 interface IRecipesState {
   searchedRecipes: IFetchedMeal[];
   selectedRecipe?: IMeal;
+  isLoading: boolean;
   // favouriteRecipe: IMeal[];
 }
 
 const initialState: IRecipesState = {
   searchedRecipes: [],
   selectedRecipe: undefined,
+  isLoading: false,
 };
 
 export const recipeSlice = createSlice({
@@ -74,14 +76,15 @@ export const recipeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // builder.addCase(getRecipeById.pending, (state) => {
-
-    // })
+    builder.addCase(getRecipeById.pending, (state) => {
+      state.isLoading = true;
+    })
 
     builder.addCase(
       getRecipeById.fulfilled,
       (state, { payload }: PayloadAction<IMeal>) => {
         state.selectedRecipe = payload;
+        state.isLoading = false;
       }
     );
   },
@@ -89,5 +92,7 @@ export const recipeSlice = createSlice({
 
 export const selectSelectedRecipe = (state: RootState) =>
   state.recipes.selectedRecipe;
+export const selectIsLoading = (state: RootState) => state.recipes.isLoading;
+
 
 export default recipeSlice.reducer;

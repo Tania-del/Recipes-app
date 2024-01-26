@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Title from './Title';
 import Header from './Header';
 import { useSelector } from 'react-redux';
-import { getCategoryMeals, selectCategoryMeals, selectSelectedCategory } from '../store/categoriesSlice';
+import { getCategoryMeals, selectCategoryMeals, selectLoading, selectSelectedCategory } from '../store/categoriesSlice';
 import { useAppDispatch } from '../store/store';
 import SingleMeal from './SingleMeal';
 import BackButton from './BackButton';
@@ -12,8 +12,11 @@ const CategoryMeals = () => {
     const { categoryId } = useParams();
     const dispatch = useAppDispatch()
     const category = useSelector(selectSelectedCategory);
-    const meals = useSelector(selectCategoryMeals)
+    const meals = useSelector(selectCategoryMeals);
+    const loading = useSelector(selectLoading)
 
+    // console.log('isLoading: ', loading); // This loading works when loading meals;
+    
     
     useEffect(() => {
        dispatch(getCategoryMeals(category))

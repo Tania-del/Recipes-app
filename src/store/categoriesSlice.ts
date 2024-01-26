@@ -69,18 +69,26 @@ export const categoriesSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getCategories.pending, (state) => {
-      // state.isLoading = true,
+      state.isLoading = true;
       //   state.hasError = false,
     });
+
     builder.addCase(
       getCategories.fulfilled,
       (state, { payload }: PayloadAction<ICategory[]>) => {
         state.categories = payload;
+        state.isLoading = false;
       }
     );
-    // builder.addCase(getCategoryMeals.pending, (state, { payload }))
+   
+    builder.addCase(getCategoryMeals.pending, (state) => {
+      state.isLoading = true;
+    })
+    
+
     builder.addCase(getCategoryMeals.fulfilled, (state, { payload }: PayloadAction<ISingleMeal[]>) => {
       state.categoryMeals = payload;
+      state.isLoading = false;
     })
   },
 });
@@ -91,5 +99,7 @@ export const selectCategories = (state: RootState) => state.categories;
 export const selectSelectedCategory = (state: RootState) =>
   state.categories.selectedCategory;
 export const selectCategoryMeals = (state: RootState) => state.categories.categoryMeals;
+export const selectLoading = (state: RootState) => state.categories.isLoading;
+
 
 export default categoriesSlice.reducer;

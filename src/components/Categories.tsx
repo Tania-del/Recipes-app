@@ -8,7 +8,10 @@ import Category from "./Category";
 const Categories = () => {
   const dispatch = useAppDispatch();
   const { categories } = useSelector(selectCategories);
-
+  
+  
+  // console.log('isLoading: ', isLoading); // Use sceleton here because it also loaded page
+  
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
