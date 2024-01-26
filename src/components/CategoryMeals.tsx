@@ -7,17 +7,16 @@ import { getCategoryMeals, selectCategoryMeals, selectLoading, selectSelectedCat
 import { useAppDispatch } from '../store/store';
 import SingleMeal from './SingleMeal';
 import BackButton from './BackButton';
+import {Skeleton} from '@mui/material'
 
 const CategoryMeals = () => {
     const { categoryId } = useParams();
     const dispatch = useAppDispatch()
     const category = useSelector(selectSelectedCategory);
     const meals = useSelector(selectCategoryMeals);
-    const loading = useSelector(selectLoading)
+    const loading = useSelector(selectLoading);
+    
 
-    // console.log('isLoading: ', loading); // This loading works when loading meals;
-    
-    
     useEffect(() => {
        dispatch(getCategoryMeals(category))
    }, [category, dispatch])
@@ -29,8 +28,8 @@ const CategoryMeals = () => {
                 <Title categoryId={categoryId} />
                 <ul className="grid gap-2 grid-cols-auto pb-4 overflow-x-hidden lg:overflow-x-visible">
                     {meals?.map(({ id, meal, img }) => (
-                     <li key={id} className=" rounded cursor-pointer ">
-                            <SingleMeal meal={meal} id={id} img={img} />
+                        <li key={id} className=" rounded cursor-pointer ">
+                            {loading ? <Skeleton variant='rectangular' width='full' height={200} /> :  <SingleMeal meal={meal} id={id} img={img} />}
             </li>
                     ))}
                 </ul>

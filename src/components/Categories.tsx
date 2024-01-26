@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import Title from "./Title";
-import { getCategories, selectCategories } from "../store/categoriesSlice";
+import { getCategories, selectCategories, selectLoading } from "../store/categoriesSlice";
 import { useAppDispatch } from "../store/store";
 import { useSelector } from "react-redux";
 import Category from "./Category";
+import { Skeleton } from "@mui/material";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
   const { categories } = useSelector(selectCategories);
-  
-  
+  const loading = useSelector(selectLoading);
+
   // console.log('isLoading: ', isLoading); // Use sceleton here because it also loaded page
   
   useEffect(() => {
@@ -23,7 +24,7 @@ const Categories = () => {
         <ul className="grid gap-2 grid-cols-auto pb-8 overflow-x-hidden lg:overflow-x-visible">
           {categories.map(({ img, id, category }) => (
             <li key={id} className="p-[15px] bg-pink rounded cursor-pointer transition ease-out transform hover:scale-103 hover:shadow-4xl duration-200">
-              <Category key={id} img={img} id={id} category={category} />
+              {loading ? <Skeleton variant="rectangular" width='full' height={200} /> : <Category key={id} img={img} id={id} category={category} />}
             </li>
           ))}
         </ul>

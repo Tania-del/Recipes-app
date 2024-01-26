@@ -13,19 +13,17 @@ const SingleRecipe = () => {
   const dispatch = useAppDispatch();
   const recipe = useSelector(selectSelectedRecipe);
   const { back } = useCustomNavigate();
+  const loading = useSelector(selectIsLoading)
 
   useEffect(() => {
     dispatch(getRecipeById(recipeId));
   }, [recipeId, dispatch]);
 
-const loading = useSelector(selectIsLoading)
 
   // console.log(recipe);
   console.log('isLoading: ', loading);
   
 
-
-  
   const { mealImg, meal, category, video = '/', area, ingredients = [] } = recipe ?? {};
   const slicedEngredients: IIngredient[] = ingredients?.slice(0, 8);
     
