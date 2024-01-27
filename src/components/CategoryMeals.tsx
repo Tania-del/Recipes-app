@@ -21,6 +21,8 @@ const CategoryMeals = () => {
        dispatch(getCategoryMeals(category))
    }, [category, dispatch])
     
+    
+    
     return (
         <>
     <Header />
@@ -29,7 +31,8 @@ const CategoryMeals = () => {
                 <ul className="grid gap-2 grid-cols-auto pb-4 overflow-x-hidden lg:overflow-x-visible">
                     {meals?.map(({ id, meal, img }) => (
                         <li key={id} className=" rounded cursor-pointer ">
-                            {loading ? <Skeleton variant='rectangular' width='full' height={200} /> :  <SingleMeal meal={meal} id={id} img={img} />}
+                            {loading ? <Skeleton variant='rectangular' width='full' height={200} /> :  
+                            <SingleMeal meal={meal} id={id} img={img} />}
             </li>
                     ))}
                 </ul>
