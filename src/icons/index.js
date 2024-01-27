@@ -6,3 +6,4 @@ export { default as Home } from "./Home";
 export { default as Menu } from "./Menu";
 export { default as Plate } from "./Plate";
 export { default as SearchSvgrepoCom } from "./SearchSvgrepoCom";
+export { default as Star } from "./Star";
