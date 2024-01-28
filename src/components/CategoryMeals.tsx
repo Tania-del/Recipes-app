@@ -40,7 +40,8 @@ const CategoryMeals = () => {
             </motion.li>
                     ))}
                 </ul>
-                <BackButton />
+                {meals && meals.length > 0 &&  <BackButton />}
+               
     </section>
         </>
   )

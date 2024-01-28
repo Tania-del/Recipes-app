@@ -29,7 +29,7 @@ const SingleMeal = ({ meal, id, img }: ISingleMeal) => {
             </Link>
           )}
 
-          <Star className="p-0.5 bg-violet rounded-full fill-white absolute top-0 right-0 opacity-0 transition-all duration-200 group-hover:opacity-100 " />
+          <Star className="p-0.5 bg-violet rounded-full fill-white absolute top-0 right-0 opacity-0 transition-all duration-200 group-hover:opacity-100" />
         </div>
         <h4 className="text-base capitalize font-bold flex text-center items-center leading-tight justify-center text-white bg-violet rounded-b p-0.3em min-h-14">
           {meal}
