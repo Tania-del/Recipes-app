@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import CategoryMeals from './components/CategoryMeals';
 import Recipe from './components/SingleRecipe';
+import SearchRecipes from './components/SearchRecipes';
 
 
 
@@ -26,6 +27,7 @@ root.render(
           <Route path='/' element={<App />} />
           <Route path='/category/:categoryId' element={<CategoryMeals />} />
           <Route path='/recipes/:recipeId' element={<Recipe />} />
+          <Route path='/search-results/:query' element={<SearchRecipes />} />
         </Routes>
       </BrowserRouter>
       </Provider>

@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { urlRecipeById } from "../apis";
-import { IFetchedMeal, IIngredient, IMeal } from "./types";
+import { urlRecipeById, urlRecipeBySearchName } from "../apis";
+import { IFetchedMeal, IFetchedMeals, IIngredient, IMeal, ISingleMeal } from "./types";
 import { RootState } from "./store";
 
 export const getRecipeById = createAsyncThunk(
@@ -58,8 +58,25 @@ export const getRecipeById = createAsyncThunk(
   }
 );
 
+export const getRecipesBySearchName = createAsyncThunk(
+  "recipes/getRecipesBySearchName",
+  async (searchName: string) => {
+    const response = await fetch(urlRecipeBySearchName + searchName);
+    const { meals } = await response.json();
+
+    const formatedMeals: ISingleMeal[] = meals.map(({ idMeal, strMeal, strMealThumb }: IFetchedMeals) => ({ 
+      id: idMeal,
+      meal: strMeal,
+      img: strMealThumb,
+    }))
+  
+    return formatedMeals;
+    }
+)
+
+
 interface IRecipesState {
-  searchedRecipes: IFetchedMeal[];
+  searchedRecipes: ISingleMeal[];
   selectedRecipe?: IMeal;
   isLoading: boolean;
   // favouriteRecipe: IMeal[];
@@ -87,12 +104,26 @@ export const recipeSlice = createSlice({
         state.isLoading = false;
       }
     );
+
+    builder.addCase(
+      getRecipesBySearchName.pending, (state) => {
+        state.isLoading = true;
+      }
+    );
+
+        builder.addCase(
+      getRecipesBySearchName.fulfilled,
+      (state, { payload }: PayloadAction<ISingleMeal[]>) => {
+        state.searchedRecipes = payload;
+        state.isLoading = false;
+      }
+    );
   },
 });
 
 export const selectSelectedRecipe = (state: RootState) =>
   state.recipes.selectedRecipe;
 export const selectIsLoading = (state: RootState) => state.recipes.isLoading;
-
+export const selectSearchedRecipes = (state: RootState) => state.recipes.searchedRecipes;
 
 export default recipeSlice.reducer;

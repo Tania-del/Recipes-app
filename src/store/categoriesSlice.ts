@@ -4,7 +4,7 @@ import { urlAllCategories, urlCategoryMeals } from "../apis";
 import { RootState } from "./store";
 
 export const getCategories = createAsyncThunk(
-  "categories/getCategories",
+  "categories/getAllCategories",
   async () => {
     const response = await fetch(urlAllCategories);
     const { categories } = await response.json();
@@ -39,6 +39,8 @@ export const getCategoryMeals = createAsyncThunk(
     return formatedMeals;
   }
 );
+
+
 
 interface CategoriesState {
   categories: ICategory[];
