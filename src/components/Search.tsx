@@ -11,7 +11,6 @@ export const Search = () => {
   const dispatch = useAppDispatch();
   const { query } = useParams()
   
-  console.log("🚀 ~ Search ~ query:", query);
 
 
   

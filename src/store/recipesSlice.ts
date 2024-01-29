@@ -70,6 +70,7 @@ export const getRecipesBySearchName = createAsyncThunk(
       img: strMealThumb,
     }))
   
+    
     return formatedMeals;
     }
 )
@@ -77,15 +78,17 @@ export const getRecipesBySearchName = createAsyncThunk(
 
 interface IRecipesState {
   searchedRecipes: ISingleMeal[];
-  selectedRecipe?: IMeal;
+  selectedRecipe: IMeal | null;
   isLoading: boolean;
+  hasError: boolean;
   // favouriteRecipe: IMeal[];
 }
 
 const initialState: IRecipesState = {
   searchedRecipes: [],
-  selectedRecipe: undefined,
+  selectedRecipe: null,
   isLoading: false,
+  hasError: false,
 };
 
 export const recipeSlice = createSlice({
@@ -95,6 +98,7 @@ export const recipeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getRecipeById.pending, (state) => {
       state.isLoading = true;
+      state.hasError = false;
     })
 
     builder.addCase(
@@ -102,8 +106,15 @@ export const recipeSlice = createSlice({
       (state, { payload }: PayloadAction<IMeal>) => {
         state.selectedRecipe = payload;
         state.isLoading = false;
+        state.hasError = false;
       }
     );
+    builder.addCase(
+      getRecipeById.rejected, (state) => {
+        state.hasError = true;
+        state.isLoading = false;
+      }
+    )
 
     builder.addCase(
       getRecipesBySearchName.pending, (state) => {
@@ -123,7 +134,8 @@ export const recipeSlice = createSlice({
 
 export const selectSelectedRecipe = (state: RootState) =>
   state.recipes.selectedRecipe;
-export const selectIsLoading = (state: RootState) => state.recipes.isLoading;
+export const selectIsLoadingRecipes = (state: RootState) => state.recipes.isLoading;
 export const selectSearchedRecipes = (state: RootState) => state.recipes.searchedRecipes;
+export const selectErrorRecipes = (state: RootState) => state.recipes.hasError;
 
 export default recipeSlice.reducer;

@@ -47,7 +47,7 @@ interface CategoriesState {
   selectedCategory: string;
   hasError: boolean;
   isLoading: boolean;
-  categoryMeals?: ISingleMeal[];
+  categoryMeals: ISingleMeal[];
 }
 
 const initialState: CategoriesState = {
@@ -55,7 +55,7 @@ const initialState: CategoriesState = {
   selectedCategory: "",
   hasError: false,
   isLoading: false,
-  categoryMeals: undefined,
+  categoryMeals: [],
   // getLocalStorage('category'),f
 };
 
@@ -72,7 +72,7 @@ export const categoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getCategories.pending, (state) => {
       state.isLoading = true;
-      //   state.hasError = false,
+      state.hasError = false;
     });
 
     builder.addCase(
@@ -80,18 +80,38 @@ export const categoriesSlice = createSlice({
       (state, { payload }: PayloadAction<ICategory[]>) => {
         state.categories = payload;
         state.isLoading = false;
+        state.hasError = false;
       }
     );
+    builder.addCase(
+      getCategories.rejected, 
+      (state) => {
+        state.hasError = true;
+        state.isLoading = false;
+        state.categories = [];
+      }
+    )
    
-    builder.addCase(getCategoryMeals.pending, (state) => {
-      state.isLoading = true;
+    builder.addCase(
+      getCategoryMeals.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
     })
     
 
-    builder.addCase(getCategoryMeals.fulfilled, (state, { payload }: PayloadAction<ISingleMeal[]>) => {
+    builder.addCase(
+      getCategoryMeals.fulfilled, (state, { payload }: PayloadAction<ISingleMeal[]>) => {
       state.categoryMeals = payload;
-      state.isLoading = false;
+        state.isLoading = false;
+        state.hasError = false;
     })
+
+    builder.addCase(
+      getCategoryMeals.rejected, (state) => {
+        state.hasError = true;
+        state.isLoading = false;
+      }
+    )
   },
 });
 
@@ -101,7 +121,7 @@ export const selectCategories = (state: RootState) => state.categories;
 export const selectSelectedCategory = (state: RootState) =>
   state.categories.selectedCategory;
 export const selectCategoryMeals = (state: RootState) => state.categories.categoryMeals;
-export const selectLoading = (state: RootState) => state.categories.isLoading;
-
+export const selectIsLoadingCategories = (state: RootState) => state.categories.isLoading;
+export const selectErrorCategories = (state: RootState) => state.categories.hasError;
 
 export default categoriesSlice.reducer;

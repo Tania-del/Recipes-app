@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ISingleMeal } from "../store/types";
 import { useSelector } from "react-redux";
-import { selectLoading } from "../store/categoriesSlice";
+import { selectIsLoadingCategories } from "../store/categoriesSlice";
 import { Skeleton } from "@mui/material";
 import { Star } from "../icons";
 
 const SingleMeal = ({ meal, id, img }: ISingleMeal) => {
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectIsLoadingCategories);
 
   return (
     <>
@@ -22,7 +22,7 @@ const SingleMeal = ({ meal, id, img }: ISingleMeal) => {
               ) : (
                 <img
                   src={img}
-                  alt=""
+                  alt={img}
                   className="w-full h-full block border-x border-t-[1px] rounded"
                 />
               )}

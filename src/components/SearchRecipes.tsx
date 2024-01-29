@@ -1,9 +1,8 @@
 import React from 'react'
 import Header from './Header'
 import { useSelector } from 'react-redux'
-import { selectSearchedRecipes } from '../store/recipesSlice'
+import { selectErrorRecipes, selectIsLoadingRecipes, selectSearchedRecipes } from '../store/recipesSlice'
 import Title from './Title'
-import { selectLoading } from '../store/categoriesSlice'
 import { motion } from "framer-motion";
 import { Skeleton } from '@mui/material'
 import SingleMeal from './SingleMeal'
@@ -12,7 +11,10 @@ import BackButton from './BackButton'
 
 export const SearchRecipes = () => {
     const searchedRecipes = useSelector(selectSearchedRecipes);
-    const loading = useSelector(selectLoading);
+    const loading = useSelector(selectIsLoadingRecipes);
+    const error = useSelector(selectErrorRecipes);
+
+    console.log(searchedRecipes);
     
  return (
         <>
@@ -20,7 +22,7 @@ export const SearchRecipes = () => {
             <main className='max-w-[1140px] mt-0  mb-0 mr-auto ml-auto'>
       <section className=' pb-4'>
                 <Title  />
-                {!loading && searchedRecipes &&
+                {searchedRecipes ?
                     <ul className="grid gap-2 grid-cols-auto pb-4 overflow-x-hidden lg:overflow-x-visible">
                         {searchedRecipes?.map(({ id, meal, img }, index) => (
                             <motion.li key={id} className=" rounded cursor-pointer"
@@ -33,7 +35,7 @@ export const SearchRecipes = () => {
                                     <SingleMeal meal={meal} id={id} img={img} />}
                             </motion.li>
                         ))}
-                    </ul>}
+                    </ul> : <p className='m-3'>Cannot display recipes...</p>}
             </section>
             {!loading && 
                 <BackButton />}
