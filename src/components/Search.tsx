@@ -1,31 +1,42 @@
-import React, { useState }  from "react";
+import React, { useEffect, useState }  from "react";
 import {SearchSvgrepoCom } from "../icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../store/store";
 import { getRecipesBySearchName } from "../store/recipesSlice";
 
 
 export const Search = () => {
-  const [query, setQuery] = useState<string>('');
+  const [queryValue, setQueryValue] = useState<string>('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { query } = useParams()
+  
+  console.log("🚀 ~ Search ~ query:", query);
+
 
   
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
+    setQueryValue(e.target.value)
   }
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (query) {
-      dispatch(getRecipesBySearchName(query))
+    if (queryValue) {
+      dispatch(getRecipesBySearchName(queryValue))
 
-      setQuery('')
-      navigate(`/search-results/${query}`);
+      navigate(`/search-results/${queryValue}`);
+
+      setQueryValue('')
     }
   }
   
+   useEffect(() => {
+     if (query) {
+      dispatch(getRecipesBySearchName(query))
+    }
+  })
 
   
   return (
@@ -40,7 +51,7 @@ export const Search = () => {
           placeholder="Search recipes..."
           className="bg-white py-2 px-3 rounded pr-10 focus:outline-none focus:border-green focus:ring focus:ring-green w-[164px] focus:w-[215px] md:w-[215px] transition-width duration-500 ease-out font-roboto text-base"
           onChange={handleChange}
-          value={query}
+          value={queryValue}
         />
         <button className="absolute top-2 right-3 outline-none">
           {<SearchSvgrepoCom />}
