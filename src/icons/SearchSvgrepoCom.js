@@ -4,12 +4,12 @@ const SvgSearchSvgrepoCom = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     width={25}
     height={25}
-    fill="none"
+    fill="currentColor"
     viewBox="0 0 24 24"
     {...props}
   >
     <g clipPath="url(#search-svgrepo-com_svg__a)">
-      <path fill="#fff" d="M0 0h24v24H0z" />
+      <path fill="currentColor" d="M0 0h24v24H0z" />
       <circle
         cx={10.5}
         cy={10.5}

@@ -32,7 +32,7 @@ export const SearchRecipes = () => {
                                  initial={{ x: 100, y: 100, opacity: 0 }}
                                  animate={{ x: 0, y: 0, opacity: 1 }}
                                  exit={{ x: -100, y: -100, opacity: 0 }}
-                                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                                 transition={{ duration: 0.3, delay: index * 0.1 }}
                              >
                                  {loading ? <Skeleton variant='rectangular' width='full' height={200} /> :
                                      <SingleMeal meal={meal} id={id} img={img} />}

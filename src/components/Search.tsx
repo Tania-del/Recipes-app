@@ -52,8 +52,8 @@ export const Search = () => {
           onChange={handleChange}
           value={queryValue}
         />
-        <button className="absolute top-2 right-3 outline-none">
-          {<SearchSvgrepoCom />}
+        <button className="absolute top-2 right-3 outline-none text-white">
+          {<SearchSvgrepoCom  />}
         </button>
       </form>
     </>
