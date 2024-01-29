@@ -26,7 +26,7 @@ const Categories = () => {
   
   return (
     <section className="max-w-[1140px] mt-0 mr-auto mb-0 ml-auto">
-      <Title />
+      <Title categories={categories} />
       {categories.length > 0 &&
         <ul className="grid gap-2 grid-cols-auto pb-8 overflow-x-hidden lg:overflow-x-visible">
           {categories.map(({ img, id, category }) => (

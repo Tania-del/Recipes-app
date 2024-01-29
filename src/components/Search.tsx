@@ -35,7 +35,7 @@ export const Search = () => {
      if (query) {
       dispatch(getRecipesBySearchName(query))
     }
-  })
+  },[dispatch, query])
 
   
   return (

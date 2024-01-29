@@ -23,7 +23,7 @@ const CategoryMeals = () => {
     }, [category, dispatch]);
     
     
-    console.log(meals);
+  
     
     return (
         <>

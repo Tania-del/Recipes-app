@@ -119,6 +119,7 @@ export const recipeSlice = createSlice({
     builder.addCase(
       getRecipesBySearchName.pending, (state) => {
         state.isLoading = true;
+        state.hasError = false;
       }
     );
 
@@ -127,8 +128,16 @@ export const recipeSlice = createSlice({
       (state, { payload }: PayloadAction<ISingleMeal[]>) => {
         state.searchedRecipes = payload;
         state.isLoading = false;
+        state.hasError = false;
       }
-    );
+        );
+    builder.addCase(
+      getRecipesBySearchName.rejected, (state) => {
+        state.hasError = true;
+        state.isLoading = false;
+        state.searchedRecipes = [];
+      }
+    )
   },
 });
 
