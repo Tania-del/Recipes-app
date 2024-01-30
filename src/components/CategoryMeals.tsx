@@ -17,12 +17,18 @@ const CategoryMeals = () => {
     const meals = useSelector(selectCategoryMeals);
     const loading = useSelector(selectIsLoadingCategories);
     const error = useSelector(selectErrorCategories);
+    
 
     useEffect(() => {
         dispatch(getCategoryMeals(category))
+
+        if (categoryId) {
+            dispatch(getCategoryMeals(categoryId))
+        }
     }, [category, dispatch]);
     
     
+  console.log(category);
   
     
     return (

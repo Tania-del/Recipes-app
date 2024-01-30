@@ -14,11 +14,7 @@ export const SearchRecipes = () => {
     const loading = useSelector(selectIsLoadingRecipes);
     const error = useSelector(selectErrorRecipes);
     
-    useEffect(() => {
-    console.log(searchedRecipes);
-    
-})
-    
+
  return (
         <>
             <Header />
