@@ -4,7 +4,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // kanit: ["Kanit", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
       colors: {
@@ -32,17 +31,25 @@ module.exports = {
       scale: {
         103: "1.03",
       },
+
       gridTemplateColumns: {
         auto: "repeat(auto-fill, minmax(192px, 1fr))",
         columns: "repeat(2, 1fr)",
-        13: "repeat(auto-fill, min-max(126px, 1fr))",
+        ingrCol: "repeat(auto-fill, minmax(126px, 1fr))",
       },
+
       gridTemplateRows: {
         rows: "repeat(2,332px) 1fr",
       },
 
       padding: {
         "0.3em": "0.3em",
+      },
+      letterSpacing: {
+        tighttest: ".04em",
+      },
+      fontSize: {
+        925: ".925rem",
       },
     },
   },
