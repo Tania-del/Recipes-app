@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface LinkProps {
@@ -9,14 +9,18 @@ interface LinkProps {
 interface ButtonProps {
   type?: "button";
   onClick?: () => void;
-  children?: string;
 }
 
-type LinkButton = ({ children: ReactNode } & LinkProps) | ButtonProps;
+interface SharibleProps {
+  className?: string;
+   children?: string;
+}
 
-const LinkOrButton = ({ type, children, ...props }: LinkButton) => {
+type LinkButton = SharibleProps & (LinkProps | ButtonProps);
+
+const LinkOrButton = ({ type, children,  ...props }: LinkButton) => {
   if (type === "link") {
-    return <Link {...(props as LinkProps)}>{children}</Link>;
+    return <Link  {...(props as LinkProps)}>{children}</Link>;
   }
 
   return <button {...(props as ButtonProps)}>{children}</button>

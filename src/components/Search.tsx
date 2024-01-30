@@ -48,11 +48,11 @@ export const Search = () => {
         <input
           name="search"
           placeholder="Search recipes..."
-          className="bg-white py-2 px-3 rounded pr-10 focus:outline-none focus:border-green focus:ring focus:ring-green w-[164px] focus:w-[215px] md:w-[215px] transition-width duration-500 ease-out font-roboto text-base"
+          className="bg-clearWhite py-2 px-3 rounded pr-10 focus:outline-none focus:border-green focus:ring focus:ring-green w-[164px] focus:w-[215px] md:w-[215px] transition-width duration-500 ease-out font-roboto text-base"
           onChange={handleChange}
           value={queryValue}
         />
-        <button className="absolute top-2 right-3 outline-none text-white">
+        <button className="absolute top-2 right-3 outline-none text-clearWhite">
           {<SearchSvgrepoCom  />}
         </button>
       </form>

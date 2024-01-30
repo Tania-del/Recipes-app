@@ -11,7 +11,7 @@ import {
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import CategoryMeals from './components/CategoryMeals';
-import Recipe from './components/SingleRecipe';
+import Recipe from './components/Recipe';
 import SearchRecipes from './components/SearchRecipes';
 
 

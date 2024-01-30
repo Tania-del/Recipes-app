@@ -18,11 +18,13 @@ module.exports = {
         gray: "#c6c8c6",
         lightGray: "#bbb",
         grayRgba: "rgba(30,31,83,.14)",
+        clearWhite: "#FFFFFF",
       },
 
       boxShadow: {
         "3xl": "0 0 5px 2px #fff",
         "4xl": "0 0px 5px 3px #949494",
+        recipe: "0 0px 1px 1px #949494",
       },
       dropShadow: {
         "3xl": "1px 0 10px #dfbb2a",
