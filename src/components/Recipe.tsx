@@ -9,7 +9,12 @@ import { IIngredient } from '../store/types';
 import Header from './Header';
 import Ingredient from './Ingredient';
 import Underline from './Underline';
+import { replaceYoutubeLink } from '../utils/replaceYouTubeLink';
 
+type Buttons = {
+  title: string;
+  link: string;
+ }
 
 const SingleRecipe = () => {
   const { recipeId } = useParams();
@@ -27,10 +32,11 @@ const SingleRecipe = () => {
     }
   }, [recipeId, dispatch]);
   
-  const { mealImg, meal, category, video = '/', area, ingredients = [] } = recipe ?? {};
+  const { mealImg, meal, category, video = '/', area, ingredients = [], article = '' } = recipe ?? {};
   const slicedEngredients: IIngredient[] = ingredients?.slice(0, 8);
-    
-  
+  const youTubeLink = replaceYoutubeLink(video)
+  const buttonsArr: Buttons[] = [{ title: 'Video',  link: video }, { title: 'Article', link: article}]
+
   return (
     <>
       <Header />
@@ -49,7 +55,6 @@ const SingleRecipe = () => {
               >{category}</LinkOrButton>
             </div>
             <p className='my-1 text-sm'>{area}</p>
-            {/* <LinkOrButton type='link' to={video}>Video</LinkOrButton> */}
         <Underline className='w-full h-[1px] mx-1 my-2 bg-lightGray'/>
             <h4 className='bg-violet text-white text-center py-1 mb-2 font-roboto tracking-wide'>Ingredients&nbsp;
               <span className='text-green'>{`(${slicedEngredients.length})`}</span>
@@ -59,14 +64,31 @@ const SingleRecipe = () => {
             <ul className='grid grid-cols-ingrCol w-full m-0 p-0 gap-1.5 '>{slicedEngredients.map(({ ingredient, measure }) => (
               <Ingredient ingredient={ingredient} measure={measure} />
             ))}</ul>
-          </div>
+              <Underline className='w-full h-[1px] mx-1 my-2 bg-lightGray' />
+              <LinkOrButton type='button'>Show instructions</LinkOrButton>
 
-          <div>
-              <LinkOrButton />
-              <LinkOrButton />
-          </div>
+              <Underline className='w-full h-[1px] mx-1 my-2 bg-lightGray' />
+            </div>
+            
 
-          <div></div>
+            {youTubeLink && <div>
+              <iframe
+                src={youTubeLink}
+                frameBorder="0"
+                title={`${meal} youtube video`}
+                allow='encrypted-media'
+                allowFullScreen
+                className='w-full h-full border border-1 border-solid border-violet shadow-recipe'
+              ></iframe>
+            </div>}
+
+            
+            <div>
+              {buttonsArr.map(({ link, title }) => 
+                <LinkOrButton type='link' to={link} className='bg-violet text-green hover:text-white px-2.5 py-1.5 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out' >{title}</LinkOrButton>
+              )}
+              
+          </div>
         </ article>
       }
       {error && <p className='m-3'>No recipe to display!</p>}
