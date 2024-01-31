@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch } from '../store/store';
 import { getRecipeById, selectErrorRecipes, selectIsLoadingRecipes, selectSelectedRecipe } from '../store/recipesSlice';
@@ -10,10 +10,13 @@ import Header from './Header';
 import Ingredient from './Ingredient';
 import Underline from './Underline';
 import { replaceYoutubeLink } from '../utils/replaceYouTubeLink';
+import { View } from '../icons';
+import BackButton from './BackButton';
 
-type Buttons = {
+type NavigationButtons = {
   title: string;
   link: string;
+  icon: ReactNode;
  }
 
 const SingleRecipe = () => {
@@ -35,12 +38,12 @@ const SingleRecipe = () => {
   const { mealImg, meal, category, video = '/', area, ingredients = [], article = '' } = recipe ?? {};
   const slicedEngredients: IIngredient[] = ingredients?.slice(0, 8);
   const youTubeLink = replaceYoutubeLink(video)
-  const buttonsArr: Buttons[] = [{ title: 'Video',  link: video }, { title: 'Article', link: article}]
+  const buttonsArr: NavigationButtons[] = [{ title: 'Video',  link: video, icon: <View /> }, { title: 'Article', link: article, icon: <View />}]
 
   return (
     <>
       <Header />
-      <main>
+      <main className='pb-4'>
       {recipe &&
         <article className='mx-2 my-1 flex flex-col md:grid md:grid-cols-columns gap-4 md:grid-rows-rows '>
           <div className='grid-rows-1 '> 
@@ -83,16 +86,19 @@ const SingleRecipe = () => {
             </div>}
 
             
-            <div>
-              {buttonsArr.map(({ link, title }) => 
-                <LinkOrButton type='link' to={link} className='bg-violet text-green hover:text-white px-2.5 py-1.5 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out' >{title}</LinkOrButton>
+            <div className='flex flex-row gap-2'>
+              {buttonsArr.map(({ link, title, icon }) => 
+                <LinkOrButton type='link' to={link} className='bg-violet text-green hover:text-white px-2.5 py-2 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out flex items-center ' >
+                  {title}
+                  &nbsp;
+                  {icon}
+                </LinkOrButton>
               )}
-              
-          </div>
-        </ article>
+            </div>
+          </ article>
       }
       {error && <p className='m-3'>No recipe to display!</p>}
-
+      <BackButton />
       </main>
     </>
   )

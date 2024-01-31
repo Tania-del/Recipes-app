@@ -34,8 +34,8 @@ const CategoryMeals = () => {
     return (
         <>
             <Header />
-            <main className='max-w-[1140px] mt-0  mb-0 mr-auto ml-auto'>
-      <section className=' pb-4'>
+            <main className='max-w-[1140px] pb-4 mr-auto ml-auto'>
+      <section>
                     <Title categoryId={categoryId} />
                     {meals.length > 0 &&
                         <ul className="grid gap-2 grid-cols-auto pb-4 overflow-x-hidden lg:overflow-x-visible">

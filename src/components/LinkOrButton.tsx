@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 interface LinkProps {
@@ -13,7 +13,7 @@ interface ButtonProps {
 
 interface SharibleProps {
   className?: string;
-   children?: string;
+   children?: ReactNode;
 }
 
 type LinkButton = SharibleProps & (LinkProps | ButtonProps);
