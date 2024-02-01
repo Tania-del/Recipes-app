@@ -17,17 +17,15 @@ const Categories = () => {
   const { categories } = useSelector(selectCategories);
   const loading = useSelector(selectIsLoadingCategories);
   const error = useSelector(selectErrorCategories);
-  
+
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
-  
 
-  
   return (
     <section className="max-w-[1140px] mt-0 mr-auto mb-0 ml-auto">
-      <Title categories={categories}  />
-      {categories.length > 0 &&
+      <Title categories={categories} />
+      {categories.length > 0 && (
         <ul className="grid gap-2 grid-cols-auto pb-8 overflow-x-hidden lg:overflow-x-visible">
           {categories.map(({ img, id, category }) => (
             <motion.li
@@ -37,7 +35,7 @@ const Categories = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{
                 duration: 0.8,
-                delay: 0.3,
+                delay: 0.5,
                 ease: [0, 0.71, 0.2, 1.01],
               }}
             >
@@ -48,9 +46,9 @@ const Categories = () => {
               )}
             </motion.li>
           ))}
-      </ul>
-        }
-        {error && <p className="m-3">Cannot display categories...</p>}
+        </ul>
+      )}
+      {error && !loading && <p className="m-3">Cannot display categories...</p>}
     </section>
   );
 };

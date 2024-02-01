@@ -10,33 +10,41 @@ interface ITitle {
 const Title: FC<ITitle> = ({ categoryId, categories, searchedRecipes }) => {
   return (
     <div className="bg-violet p-2">
-      {categoryId &&
-        <motion.h1 className="text-center text-white text-[18px] font-bold"  initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.3, delay: 0.1 }}>
-          
+      {categoryId && (
+        <motion.h1
+          className="text-center text-white text-[18px] font-bold"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
           Choose a recipe from&nbsp;
           {<span className="text-green">{categoryId}</span>}&nbsp;category!
-        </motion.h1>}
-      
-      {categories && 
-        <motion.h1 className="text-center text-white text-[18px] font-bold"  initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.1 }}>
+        </motion.h1>
+      )}
+
+      {categories && (
+        <motion.h1
+          className="text-center text-white text-[18px] font-bold"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
           Choose your favourite&nbsp;
           <span className="text-green">category!</span>
         </motion.h1>
-        }
-      {searchedRecipes && 
-         <motion.h1 className="text-center text-white text-[18px] font-bold"  initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.3, delay: 0.1 }}>
+      )}
+      {searchedRecipes && (
+        <motion.h1
+          className="text-center text-white text-[18px] font-bold"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
           Your search results&nbsp;
-          <span className="text-green">{`(${searchedRecipes.length})`}</span>
-          :
+          <span className="text-green">{`(${searchedRecipes.length})`}</span>:
         </motion.h1>
-         }
-          </div>
+      )}
+    </div>
   );
 };
 

@@ -31,6 +31,7 @@ export interface IFetchedMeal {
    strInstructions: string;
   strSource: string;
   strTags: string;
+  idMeal: string;
 }
 
 
@@ -48,5 +49,6 @@ export interface IMeal {
   ingredients: IIngredient[],
             instructions: string,
             article: string,
-        tags?: string,
+  tags?: string,
+  id: string,
 }

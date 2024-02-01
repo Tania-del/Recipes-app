@@ -110,6 +110,7 @@ export const categoriesSlice = createSlice({
       getCategoryMeals.rejected, (state) => {
         state.hasError = true;
         state.isLoading = false;
+        state.categoryMeals = [];
       }
     )
   },

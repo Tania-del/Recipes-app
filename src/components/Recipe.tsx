@@ -1,108 +1,227 @@
-import React, { ReactElement, ReactNode, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useAppDispatch } from '../store/store';
-import { getRecipeById, selectErrorRecipes, selectIsLoadingRecipes, selectSelectedRecipe } from '../store/recipesSlice';
-import { useSelector } from 'react-redux';
-import { useCustomNavigate } from '../hooks/useCustomNavigate';
-import LinkOrButton from './LinkOrButton';
-import { IIngredient } from '../store/types';
-import Header from './Header';
-import Ingredient from './Ingredient';
-import Underline from './Underline';
-import { replaceYoutubeLink } from '../utils/replaceYouTubeLink';
-import { View } from '../icons';
-import BackButton from './BackButton';
+import React, { ReactNode, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch } from "../store/store";
+import {
+  addToFavorites,
+  getRecipeById,
+  removeFromFavorites,
+  selectErrorRecipes,
+  selectFavoritesRecipes,
+  selectIsLoadingRecipes,
+  selectSelectedRecipe,
+} from "../store/recipesSlice";
+import { useSelector } from "react-redux";
+import LinkOrButton from "./LinkOrButton";
+import { IIngredient, IMeal } from "../store/types";
+import Header from "./Header";
+import Ingredient from "./Ingredient";
+import Underline from "./Underline";
+import { replaceYoutubeLink } from "../utils/replaceYouTubeLink";
+import { ArrowDown, ArrowUp, View } from "../icons";
+import BackButton from "./BackButton";
+import { motion } from "framer-motion";
+import { Skeleton } from "@mui/material";
+import { useToggle } from "../hooks/useToggle";
+import SvgHeart from "../icons/Heart";
 
 type NavigationButtons = {
   title: string;
   link: string;
   icon: ReactNode;
- }
+};
+
+type ActionButtons = {
+  title: string;
+  icon: ReactNode;
+  className: string;
+  type: "link" | "button";
+  onClick?: () => void;
+  reversedTitle: string;
+  reversedIcon?: ReactNode;
+  is?: boolean;
+  withInstructions: boolean;
+};
 
 const SingleRecipe = () => {
   const { recipeId } = useParams();
   const dispatch = useAppDispatch();
   const recipe = useSelector(selectSelectedRecipe);
-  const { back } = useCustomNavigate();
-  const loading = useSelector(selectIsLoadingRecipes)
+  const loading = useSelector(selectIsLoadingRecipes);
   const error = useSelector(selectErrorRecipes);
   const navigate = useNavigate();
+  const {
+    mealImg,
+    meal,
+    category,
+    video = "/",
+    area,
+    ingredients = [],
+    article = "",
+    instructions,
+  } = recipe ?? {};
+  const slicedEngredients: IIngredient[] = ingredients?.slice(0, 8);
+  const youTubeLink = replaceYoutubeLink(video);
+  const navigationBtns: NavigationButtons[] = [
+    { title: "Video", link: video, icon: <View /> },
+    { title: "Article", link: article, icon: <View /> },
+  ];
+  const [toggled, toggle] = useToggle();
+  const favorites = useSelector(selectFavoritesRecipes);
+  const [addedFavorite, setAddedFavorite] = useState<boolean>(favorites.some((meal) => meal.id === recipe?.id));
   
   
+  const handleFavoriteClick = () => {    
+    if (addedFavorite) {
+      dispatch(removeFromFavorites(recipe?.id as string))
+      setAddedFavorite(false)
+    } else {
+      dispatch(addToFavorites(recipe as IMeal))
+      setAddedFavorite(true);
+      
+    }
+  }
+
+  const actionBtns: ActionButtons[] = [
+    {
+      title: "Show instructions",
+      reversedTitle: "Hide instructions",
+      type: "button",
+      icon: <ArrowDown />,
+      reversedIcon: <ArrowUp />,
+      className: "flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns",
+      onClick: toggle,
+      is: toggled,
+      withInstructions: true,
+    },
+    {
+      title: "Add to favourites",
+      type: 'button',
+      icon: <SvgHeart />,
+      reversedTitle: 'Remove from favourites',
+      className: 'flex items-center gap-2 justify-center bg-red border-2 border-red cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns',
+      onClick: () => handleFavoriteClick(),
+      is: addedFavorite,
+      withInstructions: false,
+    }
+    // { title: "Show all favourites", type: 'link', icon: ''},
+  ];
+
   useEffect(() => {
     if (recipeId) {
       dispatch(getRecipeById(recipeId));
     }
   }, [recipeId, dispatch]);
+
   
-  const { mealImg, meal, category, video = '/', area, ingredients = [], article = '' } = recipe ?? {};
-  const slicedEngredients: IIngredient[] = ingredients?.slice(0, 8);
-  const youTubeLink = replaceYoutubeLink(video)
-  const buttonsArr: NavigationButtons[] = [{ title: 'Video',  link: video, icon: <View /> }, { title: 'Article', link: article, icon: <View />}]
 
   return (
     <>
       <Header />
-      <main className='pb-4'>
-      {recipe &&
-        <article className='mx-2 my-1 flex flex-col md:grid md:grid-cols-columns gap-4 md:grid-rows-rows '>
-          <div className='grid-rows-1 '> 
-            <img src={mealImg} alt={meal} title={meal} className='w-full h-full block object-cover border border-solid border-1 border-violet rounded shadow-recipe'/>
-          </div>
-          
-          <div className='border border-solid border-1 border-violet rounded bg-clearWhite shadow-2xl p-3 gridArea'>
-            <div className='flex justify-between mt-1'>
-              <h2 className='text-2xl font-bold'>{meal}</h2>
-              <LinkOrButton type='button' className='bg-violet text-green hover:text-white px-2.5 py-1 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out'
-              onClick={() => navigate(`/category/${category}`)} 
-              >{category}</LinkOrButton>
-            </div>
-            <p className='my-1 text-sm'>{area}</p>
-        <Underline className='w-full h-[1px] mx-1 my-2 bg-lightGray'/>
-            <h4 className='bg-violet text-white text-center py-1 mb-2 font-roboto tracking-wide'>Ingredients&nbsp;
-              <span className='text-green'>{`(${slicedEngredients.length})`}</span>
-              :
-            </h4>
-            
-            <ul className='grid grid-cols-ingrCol w-full m-0 p-0 gap-1.5 '>{slicedEngredients.map(({ ingredient, measure }) => (
-              <Ingredient ingredient={ingredient} measure={measure} />
-            ))}</ul>
-              <Underline className='w-full h-[1px] mx-1 my-2 bg-lightGray' />
-              <LinkOrButton type='button'>Show instructions</LinkOrButton>
+      <main className="pb-4">
+        {loading && (
+          <Skeleton variant="rectangular" width="full" height={200}></Skeleton>
+        )}
+        {loading ||
+          (recipe && (
+            <motion.article className="mx-2 my-1 flex flex-col md:grid md:grid-cols-columns gap-4 md:grid-rows-rows ">
+              <div className="grid-rows-1 ">
+                <img
+                  src={mealImg}
+                  alt={meal}
+                  title={meal}
+                  className="w-full h-full block object-cover border border-solid border-1 border-violet rounded shadow-recipe"
+                />
+              </div>
 
-              <Underline className='w-full h-[1px] mx-1 my-2 bg-lightGray' />
-            </div>
-            
+              <div className="border border-solid border-1 border-violet rounded bg-clearWhite shadow-2xl p-3 gridArea">
+                <div className="flex justify-between mt-1">
+                  <h2 className="text-2xl font-bold">{meal}</h2>
+                  <LinkOrButton
+                    type="button"
+                    className="bg-violet text-green hover:text-white px-2.5 py-1 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out"
+                    onClick={() => navigate(`/category/${category}`)}
+                  >
+                    {category}
+                  </LinkOrButton>
+                </div>
+                <p className="my-1 text-sm">{area}</p>
+                <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />
+                <h4 className="bg-violet text-white text-center py-1 mb-2 font-roboto tracking-wide">
+                  Ingredients&nbsp;
+                  <span className="text-green">{`(${slicedEngredients.length})`}</span>
+                  :
+                </h4>
 
-            {youTubeLink && <div>
-              <iframe
-                src={youTubeLink}
-                frameBorder="0"
-                title={`${meal} youtube video`}
-                allow='encrypted-media'
-                allowFullScreen
-                className='w-full h-full border border-1 border-solid border-violet shadow-recipe'
-              ></iframe>
-            </div>}
+                <ul className="grid grid-cols-ingrCol w-full m-0 p-0 gap-1.5 ">
+                  {slicedEngredients.map(({ ingredient, measure }, index) => (
+                    <Ingredient
+                      ingredient={ingredient}
+                      measure={measure}
+                      index={index}
+                    />
+                  ))}
+                </ul>
+                <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />
 
-            
-            <div className='flex flex-row gap-2'>
-              {buttonsArr.map(({ link, title, icon }) => 
-                <LinkOrButton type='link' to={link} className='bg-violet text-green hover:text-white px-2.5 py-2 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out flex items-center ' >
-                  {title}
-                  &nbsp;
-                  {icon}
-                </LinkOrButton>
+                {actionBtns.map(
+                  ({ title, onClick, reversedTitle, icon, reversedIcon, className, is, withInstructions }, index, { length }) => (
+                    <>
+                    <LinkOrButton onClick={onClick} className={className}>
+                      {is ? (
+                        <>
+                          {reversedTitle}
+                              {reversedIcon}
+                        </> 
+                      ) : (
+                        <>
+                          
+                               {title}
+                          {icon}
+                        </>
+                        )}
+
+                      </LinkOrButton>
+                      {is && withInstructions ? <p className="bg-grayRgba rounded px-2 py-4 whitespace-pre-wrap leading-6 transform transition-all animated-fadeIn ">{instructions}</p> : ''}
+                      {length - 1 !== index && <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />}
+                        </>
+                  )
+                )}
+
+              </div>
+
+              {youTubeLink && (
+                <div className="h-[332px]">
+                  <iframe
+                    src={youTubeLink}
+                    frameBorder="0"
+                    title={`${meal} youtube video`}
+                    allow="encrypted-media"
+                    allowFullScreen
+                    className="w-full h-full border border-1 border-solid border-violet shadow-recipe "
+                  ></iframe>
+                </div>
               )}
-            </div>
-          </ article>
-      }
-      {error && <p className='m-3'>No recipe to display!</p>}
-      <BackButton />
+
+              <div className="flex flex-row gap-2  pb-5">
+                {navigationBtns.map(({ link, title, icon }) => (
+                  <LinkOrButton
+                    type="link"
+                    to={link}
+                    className="bg-violet text-green hover:text-white px-2.5 py-2 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out flex items-center "
+                  >
+                    {title}
+                    &nbsp;
+                    {icon}
+                  </LinkOrButton>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        {error && !loading && <p className="m-3">No recipe to display!</p>}
+        <BackButton />
       </main>
     </>
-  )
-}
-
+  );
+};
 
 export default SingleRecipe;

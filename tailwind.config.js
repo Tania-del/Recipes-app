@@ -12,12 +12,14 @@ module.exports = {
         white: "#f5f5f5",
         green: "#a7f6a7",
         creme: "#e9e8e8",
-        red: "#d40c0c",
+        // red: "#d40c0c",
         dark: "#8b7b97",
         gray: "#c6c8c6",
         lightGray: "#bbb",
         grayRgba: "rgba(30,31,83,.14)",
         clearWhite: "#FFFFFF",
+        dirtyBlue: "#255d79",
+        red: "#f13d3d",
       },
 
       boxShadow: {
@@ -47,6 +49,7 @@ module.exports = {
       },
       letterSpacing: {
         tighttest: ".04em",
+        tight: ".06em",
       },
       fontSize: {
         925: ".925rem",

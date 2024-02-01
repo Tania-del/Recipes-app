@@ -1,12 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC } from "react";
 interface IUnderline {
-    className: string;
+  className: string;
 }
 const Underline: FC<IUnderline> = ({ className }) => {
-  return (
-               <div className={className}></div>
+  return <div className={className}></div>;
+};
 
-  )
-}
-
-export default Underline
+export default Underline;
