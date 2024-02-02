@@ -101,7 +101,8 @@ export const recipeSlice = createSlice({
   initialState,
   reducers: {
     addToFavorites(state, { payload }: PayloadAction<IMeal>) {
-      state.favoritedRecipes = [...state.favoritedRecipes, payload];
+      const updatedFavorites = [...state.favoritedRecipes, payload];
+      state.favoritedRecipes = updatedFavorites;
       localStorage.setItem('favorites', JSON.stringify(state.favoritedRecipes))
     },
     removeFromFavorites(state, { payload }: PayloadAction<string>) {

@@ -38,6 +38,7 @@ module.exports = {
         auto: "repeat(auto-fill, minmax(192px, 1fr))",
         columns: "repeat(2, 1fr)",
         ingrCol: "repeat(auto-fill, minmax(126px, 1fr))",
+        favoriteCol: "repeat(auto-fill, min-max(216px, 1fr))",
       },
 
       gridTemplateRows: {

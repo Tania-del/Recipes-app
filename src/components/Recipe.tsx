@@ -69,18 +69,24 @@ const SingleRecipe = () => {
   ];
   const [toggled, toggle] = useToggle();
   const favorites = useSelector(selectFavoritesRecipes);
+  console.log(favorites.some((meal) => meal.id === recipe?.id))
   const [addedFavorite, setAddedFavorite] = useState<boolean>(favorites.some((meal) => meal.id === recipe?.id));
-  
-  
+
   const handleFavoriteClick = () => {    
     if (addedFavorite) {
-      dispatch(removeFromFavorites(recipe?.id as string))
       setAddedFavorite(false)
+      dispatch(removeFromFavorites(recipe?.id as string))
     } else {
-      dispatch(addToFavorites(recipe as IMeal))
       setAddedFavorite(true); 
+      dispatch(addToFavorites(recipe as IMeal))
     }
   }
+
+  useEffect(() => {
+    setAddedFavorite(favorites.some((meal) => meal.id === recipe?.id))
+  }, [favorites, recipe?.id])
+
+
 
   const actionBtns: ActionButtons[] = [
     {
@@ -115,7 +121,7 @@ const SingleRecipe = () => {
       className: `flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns animated-fadeIn`,
       isVisible: favorites.length > 0,
     },
-  ].filter((el) => el.isVisible) as ActionButtons[];
+  ].filter((el) => el.isVisible ) as ActionButtons[];
 
 
   useEffect(() => {
