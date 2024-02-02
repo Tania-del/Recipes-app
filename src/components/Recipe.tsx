@@ -99,13 +99,12 @@ const SingleRecipe = () => {
     {
       title: "Add to favorites",
       type: 'button',
-      icon: <SvgHeart filled={false} width={17.91}  height={17.91}/>,
-      reversedIcon: <SvgHeart filled={true} width={17.91}  height={17.91} />,
+      icon: <SvgHeart filled={false} width={17.91} height={17.91} />,
+      reversedIcon: <SvgHeart filled={true} width={17.91} height={17.91} />,
       reversedTitle: 'Remove from favorites',
       onClick: () => handleFavoriteClick(),
       className: `flex items-center gap-2 justify-center border-2 cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns ${addedFavorite ? 'bg-darkGreen  border-darkGreen' : 'bg-red border-red'}`,
       is: addedFavorite,
-      // withInstructions: false,
       isVisible: true,
     },
     {
@@ -113,11 +112,10 @@ const SingleRecipe = () => {
       type: 'link',
       icon: <List />,
       onClick: () => navigate('/favorites'),
-      className: "flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns",
-      isVisible: !addedFavorite,
-      
+      className: `flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns animated-fadeIn`,
+      isVisible: favorites.length > 0,
     },
-  ].filter((el) => el.isVisible) as ActionButtons[]
+  ].filter((el) => el.isVisible) as ActionButtons[];
 
 
   useEffect(() => {
