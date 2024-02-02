@@ -17,12 +17,13 @@ import Header from "./Header";
 import Ingredient from "./Ingredient";
 import Underline from "./Underline";
 import { replaceYoutubeLink } from "../utils/replaceYouTubeLink";
-import { ArrowDown, ArrowUp, View } from "../icons";
+import { ArrowDown, ArrowUp, List, View } from "../icons";
 import BackButton from "./BackButton";
 import { motion } from "framer-motion";
 import { Skeleton } from "@mui/material";
 import { useToggle } from "../hooks/useToggle";
 import SvgHeart from "../icons/Heart";
+
 
 type NavigationButtons = {
   title: string;
@@ -36,10 +37,11 @@ type ActionButtons = {
   className: string;
   type: "link" | "button";
   onClick?: () => void;
-  reversedTitle: string;
+  reversedTitle?: string;
   reversedIcon?: ReactNode;
   is?: boolean;
-  withInstructions: boolean;
+  withInstructions?: boolean;
+  isVisible?: boolean;
 };
 
 const SingleRecipe = () => {
@@ -76,8 +78,7 @@ const SingleRecipe = () => {
       setAddedFavorite(false)
     } else {
       dispatch(addToFavorites(recipe as IMeal))
-      setAddedFavorite(true);
-      
+      setAddedFavorite(true); 
     }
   }
 
@@ -92,19 +93,32 @@ const SingleRecipe = () => {
       onClick: toggle,
       is: toggled,
       withInstructions: true,
+      isVisible: true,
+      
     },
     {
-      title: "Add to favourites",
+      title: "Add to favorites",
       type: 'button',
-      icon: <SvgHeart />,
-      reversedTitle: 'Remove from favourites',
-      className: 'flex items-center gap-2 justify-center bg-red border-2 border-red cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns',
+      icon: <SvgHeart filled={false} width={17.91}  height={17.91}/>,
+      reversedIcon: <SvgHeart filled={true} width={17.91}  height={17.91} />,
+      reversedTitle: 'Remove from favorites',
       onClick: () => handleFavoriteClick(),
+      className: `flex items-center gap-2 justify-center border-2 cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns ${addedFavorite ? 'bg-darkGreen  border-darkGreen' : 'bg-red border-red'}`,
       is: addedFavorite,
-      withInstructions: false,
-    }
-    // { title: "Show all favourites", type: 'link', icon: ''},
-  ];
+      // withInstructions: false,
+      isVisible: true,
+    },
+    {
+      title: "Show all favourites",
+      type: 'link',
+      icon: <List />,
+      onClick: () => navigate('/favorites'),
+      className: "flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns",
+      isVisible: !addedFavorite,
+      
+    },
+  ].filter((el) => el.isVisible) as ActionButtons[]
+
 
   useEffect(() => {
     if (recipeId) {
@@ -166,7 +180,8 @@ const SingleRecipe = () => {
                 {actionBtns.map(
                   ({ title, onClick, reversedTitle, icon, reversedIcon, className, is, withInstructions }, index, { length }) => (
                     <>
-                    <LinkOrButton onClick={onClick} className={className}>
+                      
+                  <LinkOrButton onClick={onClick} className={className}>
                       {is ? (
                         <>
                           {reversedTitle}
@@ -179,8 +194,8 @@ const SingleRecipe = () => {
                           {icon}
                         </>
                         )}
-
                       </LinkOrButton>
+                      
                       {is && withInstructions ? <p className="bg-grayRgba rounded px-2 py-4 whitespace-pre-wrap leading-6 transform transition-all animated-fadeIn ">{instructions}</p> : ''}
                       {length - 1 !== index && <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />}
                         </>

@@ -3,6 +3,7 @@ export { default as ArrowDown } from "./ArrowDown";
 export { default as ArrowUp } from "./ArrowUp";
 export { default as Back } from "./Back";
 export { default as Cross } from "./Cross";
+export { default as Favorite } from "./Favorite";
 export { default as Heart } from "./Heart";
 export { default as Home } from "./Home";
 export { default as List } from "./List";

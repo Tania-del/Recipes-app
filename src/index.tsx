@@ -13,6 +13,8 @@ import { store } from './store/store';
 import CategoryMeals from './components/CategoryMeals';
 import Recipe from './components/Recipe';
 import SearchRecipes from './components/SearchRecipes';
+import Favorites from './components/Favorites';
+import AboutUs from './components/AboutUs';
 
 
 
@@ -28,6 +30,8 @@ root.render(
           <Route path='/category/:categoryId' element={<CategoryMeals />} />
           <Route path='/recipes/:recipeId' element={<Recipe />} />
           <Route path='/search-results/:query' element={<SearchRecipes />} />
+          <Route path='/favorites' element={<Favorites />} />
+          <Route path='/about' element={<AboutUs />} />
         </Routes>
       </BrowserRouter>
       </Provider>

@@ -12,7 +12,6 @@ module.exports = {
         white: "#f5f5f5",
         green: "#a7f6a7",
         creme: "#e9e8e8",
-        // red: "#d40c0c",
         dark: "#8b7b97",
         gray: "#c6c8c6",
         lightGray: "#bbb",
@@ -20,6 +19,7 @@ module.exports = {
         clearWhite: "#FFFFFF",
         dirtyBlue: "#255d79",
         red: "#f13d3d",
+        darkGreen: "#3a7d5c",
       },
 
       boxShadow: {

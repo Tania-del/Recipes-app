@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 import { About, Heart, Home } from "../icons";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 const navItems = [
-  { id: 1, text: "Home", Icon: Home },
-  { id: 2, text: "Favorites", Icon: Heart },
-  { id: 3, text: "About Us", Icon: About },
+  { id: 1, text: "Home", Icon: Home, link: "/" },
+  { id: 2, text: "Favorites", Icon: Heart, link: "/favorites" },
+  { id: 3, text: "About Us", Icon: About, link: "/about" },
 ];
 
 interface INavbar {
@@ -21,13 +22,15 @@ export const Navbar: FC<INavbar> = ({ className }) => {
       )}
     >
       <ul>
-        {navItems.map(({ Icon, id, text }) => (
+        {navItems.map(({ Icon, id, text, link }) => (
           <li
             key={id}
-            className="p-2 cursor-pointer duration-500 flex items-center gap-2 text-2xl text-white hover:text-green hover:bg-dark"
+            className="p-2 cursor-pointer duration-500  text-2xl text-white hover:text-green hover:bg-dark"
           >
-            {<Icon />}
-            <span className="text-nowrap">{text}</span>
+            <Link to={link} className="flex items-center gap-3">
+              {<Icon filled={false} width={24} height={24} />}
+              <span className="text-nowrap">{text}</span>
+            </Link>
           </li>
         ))}
       </ul>
