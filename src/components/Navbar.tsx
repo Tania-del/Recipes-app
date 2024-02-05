@@ -28,7 +28,7 @@ export const Navbar: FC<INavbar> = ({ className }) => {
             className="p-2 cursor-pointer duration-500  text-2xl text-white hover:text-green hover:bg-dark"
           >
             <Link to={link} className="flex items-center gap-3">
-              {<Icon filled={false} width={24} height={24} />}
+              {<Icon filled="false" width={24} height={24} />}
               <span className="text-nowrap">{text}</span>
             </Link>
           </li>

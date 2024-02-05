@@ -26,6 +26,7 @@ module.exports = {
         "3xl": "0 0 5px 2px #fff",
         "4xl": "0 0px 5px 3px #949494",
         recipe: "0 0px 1px 1px #949494",
+        favorite: "rgb(148, 148, 148) 0px 2px 5px 3px",
       },
       dropShadow: {
         "3xl": "1px 0 10px #dfbb2a",
@@ -38,7 +39,7 @@ module.exports = {
         auto: "repeat(auto-fill, minmax(192px, 1fr))",
         columns: "repeat(2, 1fr)",
         ingrCol: "repeat(auto-fill, minmax(126px, 1fr))",
-        favoriteCol: "repeat(auto-fill, min-max(216px, 1fr))",
+        favoriteCol: "repeat(auto-fill, minmax(216px, 1fr))",
       },
 
       gridTemplateRows: {

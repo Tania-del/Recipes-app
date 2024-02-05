@@ -69,7 +69,6 @@ const SingleRecipe = () => {
   ];
   const [toggled, toggle] = useToggle();
   const favorites = useSelector(selectFavoritesRecipes);
-  console.log(favorites.some((meal) => meal.id === recipe?.id))
   const [addedFavorite, setAddedFavorite] = useState<boolean>(favorites.some((meal) => meal.id === recipe?.id));
 
   const handleFavoriteClick = () => {    
@@ -105,8 +104,8 @@ const SingleRecipe = () => {
     {
       title: "Add to favorites",
       type: 'button',
-      icon: <SvgHeart filled={false} width={17.91} height={17.91} />,
-      reversedIcon: <SvgHeart filled={true} width={17.91} height={17.91} />,
+      icon: <SvgHeart filled="false" width={17.91} height={17.91} />,
+      reversedIcon: <SvgHeart filled="true" width={17.91} height={17.91} />,
       reversedTitle: 'Remove from favorites',
       onClick: () => handleFavoriteClick(),
       className: `flex items-center gap-2 justify-center border-2 cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns ${addedFavorite ? 'bg-darkGreen  border-darkGreen' : 'bg-red border-red'}`,
@@ -147,7 +146,8 @@ const SingleRecipe = () => {
                   src={mealImg}
                   alt={meal}
                   title={meal}
-                  className="w-full h-full block object-cover border border-solid border-1 border-violet rounded shadow-recipe"
+                className="w-full h-full block object-cover border border-solid border-1 border-violet rounded shadow-recipe"
+                
                 />
               </div>
 
@@ -163,7 +163,7 @@ const SingleRecipe = () => {
                   </LinkOrButton>
                 </div>
                 <p className="my-1 text-sm">{area}</p>
-                <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />
+                <Underline className="w-full h-[1px] mx-auto my-2 bg-lightGray" />
                 <h4 className="bg-violet text-white text-center py-1 mb-2 font-roboto tracking-wide">
                   Ingredients&nbsp;
                   <span className="text-green">{`(${slicedEngredients.length})`}</span>
@@ -172,19 +172,21 @@ const SingleRecipe = () => {
 
                 <ul className="grid grid-cols-ingrCol w-full m-0 p-0 gap-1.5 ">
                   {slicedEngredients.map(({ ingredient, measure }, index) => (
+                    
                     <Ingredient
                       ingredient={ingredient}
                       measure={measure}
                       index={index}
+                      key={ingredient}
                     />
                   ))}
                 </ul>
-                <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />
+                <Underline className="w-full h-[1px] mx-auto my-2 bg-lightGray" />
 
                 {actionBtns.map(
                   ({ title, onClick, reversedTitle, icon, reversedIcon, className, is, withInstructions }, index, { length }) => (
                     <>
-                      
+                          <React.Fragment key={index}>
                   <LinkOrButton onClick={onClick} className={className}>
                       {is ? (
                         <>
@@ -199,7 +201,8 @@ const SingleRecipe = () => {
                         </>
                         )}
                       </LinkOrButton>
-                      
+                          </React.Fragment>
+
                       {is && withInstructions ? <p className="bg-grayRgba rounded px-2 py-4 whitespace-pre-wrap leading-6 transform transition-all animated-fadeIn ">{instructions}</p> : ''}
                       {length - 1 !== index && <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />}
                         </>
@@ -227,6 +230,7 @@ const SingleRecipe = () => {
                     type="link"
                     to={link}
                     className="bg-violet text-green hover:text-white px-2.5 py-2 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out flex items-center "
+                    key={title}
                   >
                     {title}
                     &nbsp;
