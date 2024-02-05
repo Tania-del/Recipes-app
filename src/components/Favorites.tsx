@@ -11,11 +11,19 @@ import LinkOrButton from './LinkOrButton';
 import { Garbage } from '../icons';
 import BackButton from './BackButton';
 import { useAppDispatch } from '../store/store';
+import { selectSelectedCategory, setSelectedCategory } from '../store/categoriesSlice';
+
 
 export const Favorites = () => {
   const favorites = useSelector(selectFavoritesRecipes);
     const dispatch = useAppDispatch();
+  const selectedCategory = useSelector(selectSelectedCategory);
+  const filteredFavorites = selectedCategory === 'All' ? favorites : [...favorites.filter((meal) => meal.category === selectedCategory)]
 
+  
+  const filteredByCategory = (category: string, ) => {
+    dispatch(setSelectedCategory(category))
+  }
   
 
   return (
@@ -24,10 +32,16 @@ export const Favorites = () => {
     <main className='max-w-[1140px] pb-4 mr-auto ml-auto'>
       <section>
           <Title favorites={favorites} />
-          <Filter />
-          {favorites.length > 0 ? (
+          <div>
+            <ul>
+              <li onClick={() => filteredByCategory('All')}>All</li>
+              {favorites?.map((item, index) => <li key={index} onClick={() => filteredByCategory(item.category)}>{item.category}</li>)}
+            </ul>
+          </div>
+
+          {filteredFavorites.length > 0 ? (
             <ul className='grid w-full grid-cols-favoriteCol gap-2'>
-              {favorites?.map(({ id, meal, mealImg,  }) => (
+              {filteredFavorites?.map(({ id, meal, mealImg, category }) => (
                 <motion.li
                   key={id}
                   initial={{ opacity: 0, scale: 0.5 }}
@@ -38,7 +52,6 @@ export const Favorites = () => {
                           ease: [0, 0.71, 0.2, 1.01],
                         }}
                 >
-                  {/* <SingleMeal meal={meal} id={id} img={mealImg} /> */}
                   <div className='p-3 bg-pink'>
                   <SingleMeal meal={meal} id={id} img={mealImg} className='bg-none' />
                   <Underline className="w-full h-[1px]  my-2 bg-lightGray" />

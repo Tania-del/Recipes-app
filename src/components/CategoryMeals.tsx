@@ -66,7 +66,7 @@ const CategoryMeals = () => {
                   {loading ? (
                     <Skeleton variant="rectangular" width="full" height={200} />
                   ) : (
-                    <SingleMeal meal={meal} id={id} img={img} />
+                    <SingleMeal meal={meal} id={id} img={img}  />
                   )}
                 </motion.li>
               ))}

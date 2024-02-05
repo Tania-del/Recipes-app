@@ -134,7 +134,7 @@ const SingleRecipe = () => {
   return (
     <>
       <Header />
-      <main className="pb-4">
+      <main className="max-w-[1140px] pb-4 mr-auto ml-auto">
         {loading && (
           <Skeleton variant="rectangular" width="full" height={200}></Skeleton>
         )}
