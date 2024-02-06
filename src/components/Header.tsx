@@ -12,7 +12,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-violet flex justify-between p-3 border-b-[4px] border-gray border-double">
+    <header className="bg-violet flex justify-between p-3 border-b-[4px] border-gray border-double h-[66px]">
       <Link to={"/"} className="hidden sm:flex gap-3 items-center">
         <Plate className="shadow-3xl rounded-md" />
         <p className="text-green flex gap-2 font-roboto text-[27px] font-bold">

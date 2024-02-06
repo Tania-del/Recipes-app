@@ -20,6 +20,9 @@ module.exports = {
         dirtyBlue: "#255d79",
         red: "#f13d3d",
         darkGreen: "#3a7d5c",
+        lightViolet: "#918ef4",
+        black: "#000",
+        secondary: "#f8f8f8",
       },
 
       boxShadow: {
@@ -52,6 +55,7 @@ module.exports = {
       letterSpacing: {
         tighttest: ".04em",
         tight: ".06em",
+        "05": ".05em",
       },
       fontSize: {
         925: ".925rem",

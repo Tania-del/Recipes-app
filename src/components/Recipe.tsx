@@ -83,7 +83,7 @@ const SingleRecipe = () => {
 
   useEffect(() => {
     setAddedFavorite(favorites.some((meal) => meal.id === recipe?.id))
-  }, [favorites, recipe?.id])
+  }, [favorites, recipe?.id]);
 
 
 
@@ -99,7 +99,6 @@ const SingleRecipe = () => {
       is: toggled,
       withInstructions: true,
       isVisible: true,
-      
     },
     {
       title: "Add to favorites",
@@ -134,7 +133,7 @@ const SingleRecipe = () => {
   return (
     <>
       <Header />
-      <main className="max-w-[1140px] pb-4 mr-auto ml-auto">
+      <main className="max-w-[1140px] pb-4 mr-auto ml-auto h-full">
         {loading && (
           <Skeleton variant="rectangular" width="full" height={200}></Skeleton>
         )}
@@ -195,7 +194,6 @@ const SingleRecipe = () => {
                         </> 
                       ) : (
                         <>
-                          
                                {title}
                           {icon}
                         </>
@@ -225,12 +223,12 @@ const SingleRecipe = () => {
               )}
 
               <div className="flex flex-row gap-2  pb-5">
-                {navigationBtns.map(({ link, title, icon }) => (
+                {navigationBtns.map(({ link, title, icon }, index) => (
                   <LinkOrButton
                     type="link"
                     to={link}
                     className="bg-violet text-green hover:text-white px-2.5 py-2 rounded text-sm tracking-wide max-h-7 transition-all duration-500 ease-out flex items-center "
-                    key={title}
+                    key={index}
                   >
                     {title}
                     &nbsp;
@@ -241,7 +239,7 @@ const SingleRecipe = () => {
             </motion.article>
           ))}
         {error && !loading && <p className="m-3">No recipe to display!</p>}
-        <BackButton />
+        {!loading && <BackButton />} 
       </main>
     </>
   );

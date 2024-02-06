@@ -2,7 +2,7 @@ import React from 'react'
 import Title from './Title';
 import Header from './Header';
 import { useSelector } from 'react-redux';
-import { removeFromFavorites, selectFavoritesRecipes } from '../store/recipesSlice';
+import { removeFromFavorites, selectFavoritesRecipes, selectIsLoadingRecipes } from '../store/recipesSlice';
 import { motion } from 'framer-motion'
 import SingleMeal from './SingleMeal';
 import Underline from './Underline';
@@ -16,34 +16,40 @@ import { useSearchParams } from 'react-router-dom';
 export const Favorites = () => {
   const favorites = useSelector(selectFavoritesRecipes);
   const dispatch = useAppDispatch();
+  const loading = useSelector(selectIsLoadingRecipes);
   const [searchParams, setSearchParams] = useSearchParams();
   const favoriteCategory = searchParams.get('category');
   const filteredFavorites = favoriteCategory ? favorites.filter((item) => favoriteCategory === item.category.toLowerCase()) : favorites;
-
+  
 
   return (
     <>
     <Header />
-    <main className='max-w-[1140px] pb-4 mr-auto ml-auto'>
+    <main className='max-w-[1140px] pb-4 mr-auto ml-auto' >
       <section>
           <Title favorites={favorites} />
-          <div>
-            <ul>
-              {favoriteCategory && <li onClick={() => {
-                const params = ('')
-                setSearchParams(params, {'replace' : true })
-              }
-              }>All</li>}
+          {favorites.length > 0 &&
+            <div className='flex items-center justify-start flex-wrap bg-lightViolet text-clearWhite text-925 tracking-tight gap-2  border-y-4 border-double border-gray px-4 py-1.5' >
+              <p className=''>Filter by category:</p>
+              <ul className='flex gap-2 items-center flex-wrap'>
+                {favoriteCategory && <li onClick={() => {
+                  const params = ('')
+                  setSearchParams(params, { 'replace': true })
+                }
+                } className='text-black bg-secondary tracking-05 rounded-2xl  border border-violet px-3 py-1  hover:border-darkGreen hover:bg-green hover:text-black transition-all duration-300 cursor-pointer'>All</li>}
+                {favorites?.map((item, index) => <li key={index} onClick={() => {
+                  const params = ({ 'category': item.category.toLowerCase() })
+                  setSearchParams(params, { 'replace': true })
+                }
+                }
+                  className={`text-black tracking-05 rounded-2xl border px-3 py-1 transition-all duration-300 cursor-pointer ${favoriteCategory && item.category.toLowerCase() === favoriteCategory.toLowerCase()
+                      ? 'border-violet text-clearWhite bg-violet'
+                      : ' bg-secondary  hover:border-darkGreen hover:bg-green hover:text-black '
+                    }`}>{item.category}</li>)}
+              </ul>
+            </div>}
 
-              {favorites?.map((item, index) => <li key={index} onClick={() => {
-               const params = ({ 'category': item.category.toLowerCase() })
-                setSearchParams(params, {'replace' : true })
-              }
-              }>{item.category}</li>)}
-            </ul>
-          </div>
-
-          {favorites.length > 0 ? (
+          { filteredFavorites.length > 0 ? (
             <ul className='grid w-full grid-cols-favoriteCol gap-2'>
               {( filteredFavorites).map(({id, meal, mealImg}) => (
                 <motion.li
@@ -71,7 +77,7 @@ export const Favorites = () => {
             (<p className='px-3 pt-8'>You haven't added any favorite recipes yet...</p>)
         } 
         </section>
-        <BackButton />
+        {!loading && <BackButton />} 
     </main>
     </>
   )

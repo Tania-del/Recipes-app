@@ -37,7 +37,7 @@ const CategoryMeals = () => {
   return (
     <>
       <Header />
-      <main className="max-w-[1140px] pb-4 mr-auto ml-auto">
+      <main className="max-w-[1140px] pb-4 mr-auto ml-auto grow">
         <section>
           <Title categoryId={categoryId} />
           {meals.length > 0 && (
