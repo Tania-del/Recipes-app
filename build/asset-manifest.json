@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/recipes-app/static/css/main.42caf293.css",
-    "main.js": "/recipes-app/static/js/main.3f1601d5.js",
-    "static/js/787.73dbc325.chunk.js": "/recipes-app/static/js/787.73dbc325.chunk.js",
-    "index.html": "/recipes-app/index.html",
-    "main.42caf293.css.map": "/recipes-app/static/css/main.42caf293.css.map",
-    "main.3f1601d5.js.map": "/recipes-app/static/js/main.3f1601d5.js.map",
-    "787.73dbc325.chunk.js.map": "/recipes-app/static/js/787.73dbc325.chunk.js.map"
+    "main.css": "/static/css/main.42caf293.css",
+    "main.js": "/static/js/main.5405c7ec.js",
+    "static/js/787.73dbc325.chunk.js": "/static/js/787.73dbc325.chunk.js",
+    "index.html": "/index.html",
+    "main.42caf293.css.map": "/static/css/main.42caf293.css.map",
+    "main.5405c7ec.js.map": "/static/js/main.5405c7ec.js.map",
+    "787.73dbc325.chunk.js.map": "/static/js/787.73dbc325.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.42caf293.css",
-    "static/js/main.3f1601d5.js"
+    "static/js/main.5405c7ec.js"
   ]
 }
