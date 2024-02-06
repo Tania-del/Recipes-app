@@ -24,7 +24,6 @@ import { Skeleton } from "@mui/material";
 import { useToggle } from "../hooks/useToggle";
 import SvgHeart from "../icons/Heart";
 
-
 type NavigationButtons = {
   title: string;
   link: string;
@@ -69,23 +68,23 @@ const SingleRecipe = () => {
   ];
   const [toggled, toggle] = useToggle();
   const favorites = useSelector(selectFavoritesRecipes);
-  const [addedFavorite, setAddedFavorite] = useState<boolean>(favorites.some((meal) => meal.id === recipe?.id));
+  const [addedFavorite, setAddedFavorite] = useState<boolean>(
+    favorites.some((meal) => meal.id === recipe?.id)
+  );
 
-  const handleFavoriteClick = () => {    
+  const handleFavoriteClick = () => {
     if (addedFavorite) {
-      setAddedFavorite(false)
-      dispatch(removeFromFavorites(recipe?.id as string))
+      setAddedFavorite(false);
+      dispatch(removeFromFavorites(recipe?.id as string));
     } else {
-      setAddedFavorite(true); 
-      dispatch(addToFavorites(recipe as IMeal))
+      setAddedFavorite(true);
+      dispatch(addToFavorites(recipe as IMeal));
     }
-  }
+  };
 
   useEffect(() => {
-    setAddedFavorite(favorites.some((meal) => meal.id === recipe?.id))
+    setAddedFavorite(favorites.some((meal) => meal.id === recipe?.id));
   }, [favorites, recipe?.id]);
-
-
 
   const actionBtns: ActionButtons[] = [
     {
@@ -94,7 +93,8 @@ const SingleRecipe = () => {
       type: "button",
       icon: <ArrowDown />,
       reversedIcon: <ArrowUp />,
-      className: "flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns",
+      className:
+        "flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns",
       onClick: toggle,
       is: toggled,
       withInstructions: true,
@@ -102,33 +102,32 @@ const SingleRecipe = () => {
     },
     {
       title: "Add to favorites",
-      type: 'button',
+      type: "button",
       icon: <SvgHeart filled="false" width={17.91} height={17.91} />,
       reversedIcon: <SvgHeart filled="true" width={17.91} height={17.91} />,
-      reversedTitle: 'Remove from favorites',
+      reversedTitle: "Remove from favorites",
       onClick: () => handleFavoriteClick(),
-      className: `flex items-center gap-2 justify-center border-2 cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns ${addedFavorite ? 'bg-darkGreen  border-darkGreen' : 'bg-red border-red'}`,
+      className: `flex items-center gap-2 justify-center border-2 cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns ${
+        addedFavorite ? "bg-darkGreen  border-darkGreen" : "bg-red border-red"
+      }`,
       is: addedFavorite,
       isVisible: true,
     },
     {
       title: "Show all favourites",
-      type: 'link',
+      type: "link",
       icon: <List />,
-      onClick: () => navigate('/favorites'),
+      onClick: () => navigate("/favorites"),
       className: `flex items-center gap-2 justify-center bg-dirtyBlue border-2 border-dirtyBlue cursor-pointer w-full rounded p-1 text-clearWhite tracking-tight actionBtns hover:actionBtns animated-fadeIn`,
       isVisible: favorites.length > 0,
     },
-  ].filter((el) => el.isVisible ) as ActionButtons[];
-
+  ].filter((el) => el.isVisible) as ActionButtons[];
 
   useEffect(() => {
     if (recipeId) {
       dispatch(getRecipeById(recipeId));
     }
   }, [recipeId, dispatch]);
-
-  
 
   return (
     <>
@@ -145,8 +144,7 @@ const SingleRecipe = () => {
                   src={mealImg}
                   alt={meal}
                   title={meal}
-                className="w-full h-full block object-cover border border-solid border-1 border-violet rounded shadow-recipe"
-                
+                  className="w-full h-full block object-cover border border-solid border-1 border-violet rounded shadow-recipe"
                 />
               </div>
 
@@ -171,42 +169,59 @@ const SingleRecipe = () => {
 
                 <ul className="grid grid-cols-ingrCol w-full m-0 p-0 gap-1.5 ">
                   {slicedEngredients.map(({ ingredient, measure }, index) => (
-                    
                     <Ingredient
                       ingredient={ingredient}
                       measure={measure}
                       index={index}
-                      key={ingredient}
+                      key={index}
                     />
                   ))}
                 </ul>
                 <Underline className="w-full h-[1px] mx-auto my-2 bg-lightGray" />
 
                 {actionBtns.map(
-                  ({ title, onClick, reversedTitle, icon, reversedIcon, className, is, withInstructions }, index, { length }) => (
-                    <>
-                          <React.Fragment key={index}>
-                  <LinkOrButton onClick={onClick} className={className}>
-                      {is ? (
-                        <>
-                          {reversedTitle}
-                              {reversedIcon}
-                        </> 
-                      ) : (
-                        <>
-                               {title}
-                          {icon}
-                        </>
+                  (
+                    {
+                      title,
+                      onClick,
+                      reversedTitle,
+                      icon,
+                      reversedIcon,
+                      className,
+                      is,
+                      withInstructions,
+                    },
+                    index,
+                    { length }
+                  ) => (
+                    <React.Fragment key={index}>
+                      <LinkOrButton onClick={onClick} className={className}>
+                        {is ? (
+                          <>
+                            {reversedTitle}
+                            {reversedIcon}
+                          </>
+                        ) : (
+                          <>
+                            {title}
+                            {icon}
+                          </>
                         )}
                       </LinkOrButton>
-                          </React.Fragment>
 
-                      {is && withInstructions ? <p className="bg-grayRgba rounded px-2 py-4 whitespace-pre-wrap leading-6 transform transition-all animated-fadeIn ">{instructions}</p> : ''}
-                      {length - 1 !== index && <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />}
-                        </>
+                      {is && withInstructions ? (
+                        <p className="bg-grayRgba rounded px-2 py-4 whitespace-pre-wrap leading-6 transform transition-all animated-fadeIn ">
+                          {instructions}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                      {length - 1 !== index && (
+                        <Underline className="w-full h-[1px] mx-1 my-2 bg-lightGray" />
+                      )}
+                    </React.Fragment>
                   )
                 )}
-
               </div>
 
               {youTubeLink && (
@@ -239,7 +254,7 @@ const SingleRecipe = () => {
             </motion.article>
           ))}
         {error && !loading && <p className="m-3">No recipe to display!</p>}
-        {!loading && <BackButton />} 
+        {!loading && <BackButton />}
       </main>
     </>
   );

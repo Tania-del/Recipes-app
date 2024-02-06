@@ -1,6 +1,7 @@
 {
   "name": "recipes-app",
   "version": "0.1.0",
+  "homepage": "https://Tania-del.github.io/recipes-app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -40,7 +41,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "transform-svg": "svgr --config-file svgr.config.js --out-dir ./src/icons --ignore-existing ./public/iconsSvg"
+    "transform-svg": "svgr --config-file svgr.config.js --out-dir ./src/icons --ignore-existing ./public/iconsSvg",
+    "predeploy": "npm run build",
+     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -59,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }

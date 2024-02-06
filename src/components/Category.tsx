@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ICategory } from "../store/types";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppDispatch } from "../store/store";
 import { setSelectedCategory } from "../store/categoriesSlice";
 
